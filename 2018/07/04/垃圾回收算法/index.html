@@ -6,15 +6,15 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -32,7 +32,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -66,21 +66,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="JVM,垃圾回收," />
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="JVM,垃圾回收,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
 
 
 
@@ -88,17 +88,17 @@
 
 
 <meta name="description" content="本篇主要介绍在虚拟中判断对象是否存活的几种方法，以及垃圾回收常用的算法。本篇内容引自周志明的《深入理解java虚拟机 第二版》中第三章。">
+<meta name="keywords" content="JVM,垃圾回收">
 <meta property="og:type" content="article">
 <meta property="og:title" content="垃圾回收算法">
-<meta property="og:url" content="http://yoursite.com/2018/07/04/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/07/04/垃圾回收算法/index.html">
 <meta property="og:site_name" content="seayouagain">
 <meta property="og:description" content="本篇主要介绍在虚拟中判断对象是否存活的几种方法，以及垃圾回收常用的算法。本篇内容引自周志明的《深入理解java虚拟机 第二版》中第三章。">
-<meta property="article:published_time" content="2018-07-04T11:56:16.000Z">
-<meta property="article:modified_time" content="2018-08-25T15:08:15.405Z">
-<meta property="article:author" content="seayouagain">
-<meta property="article:tag" content="JVM">
-<meta property="article:tag" content="垃圾回收">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-25T15:08:15.405Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="垃圾回收算法">
+<meta name="twitter:description" content="本篇主要介绍在虚拟中判断对象是否存活的几种方法，以及垃圾回收常用的算法。本篇内容引自周志明的《深入理解java虚拟机 第二版》中第三章。">
 
 
 
@@ -126,14 +126,14 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/04/垃圾回收算法/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/04/垃圾回收算法/">
 
 
 
 
 
   <title> 垃圾回收算法 | seayouagain </title>
-<meta name="generator" content="Hexo 4.2.0"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -166,7 +166,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">seayouagain</span>
         <span class="logo-line-after"><i></i></span>
@@ -196,7 +196,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -206,7 +206,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -216,7 +216,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -226,7 +226,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -236,7 +236,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -271,11 +271,11 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/04/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/04/垃圾回收算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="seayouagain">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/upload/user.jpg">
     </span>
 
@@ -318,7 +318,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -365,9 +365,7 @@
       
 
       
-        <p>本篇主要介绍在虚拟中判断对象是否存活的几种方法，以及垃圾回收常用的算法。本篇内容引自周志明的《深入理解java虚拟机 第二版》中第三章。</p>
-<a id="more"></a>
-
+        <p>本篇主要介绍在虚拟中判断对象是否存活的几种方法，以及垃圾回收常用的算法。本篇内容引自周志明的《深入理解java虚拟机 第二版》中第三章。<br><a id="more"></a></p>
 <h4 id="哪些内存区域需要回收"><a href="#哪些内存区域需要回收" class="headerlink" title="哪些内存区域需要回收"></a>哪些内存区域需要回收</h4><p>虚拟机运行时数据区分为方法区，堆，虚拟机栈，本地方法区，程序计数器。其中虚拟机栈，本地方法区以及程序计数器３部分随线程而生，随线程而灭；并且这几个部分随方法结束或线程的结束内存自然机会回收。由于方法区中存放类信息，常量，静态变量信息这些信息回收的性价比很小效率很低。<strong>所以我们常说的垃圾回收是指回收堆内存，当然方法区内存也是可以回收的</strong>。</p>
 <h4 id="对象的生死"><a href="#对象的生死" class="headerlink" title="对象的生死"></a>对象的生死</h4><h5 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h5><p>引用计数法的逻辑是：给对象中添加一个引用计数器，每当有地方引用它时，计数器+1,当引用失效时，计数器-1。当引用计数器为０时说明没有对象引用它，这样就可以回收了。引用计数法存在致命的<strong>弊端</strong>,存在对象循环引用的问题。</p>
 <h5 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h5><p>可达性分析算法的基本思路是：通过一系列称之为”GC Roots“的对象作为起始点，从这些起始点向下搜索，所通过的路径称为引用链，当一个对象到GC Roots没有任何引用链时，则证明此对象是不可用的，会被垃圾回收器判定为可回收的对象。<br>在java 语言中可作为GC Roots的对象包括如下：</p>
@@ -409,7 +407,7 @@
           
             <a href="/tags/JVM/" rel="tag"># JVM</a>
           
-            <a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" rel="tag"># 垃圾回收</a>
+            <a href="/tags/垃圾回收/" rel="tag"># 垃圾回收</a>
           
         </div>
       
@@ -422,7 +420,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/02/java%E6%8C%89%E5%80%BC%E4%BC%A0%E9%80%92/" rel="next" title="java按值传递">
+              <a href="/2018/07/02/java按值传递/" rel="next" title="java按值传递">
                 <i class="fa fa-chevron-left"></i> java按值传递
               </a>
             
@@ -484,7 +482,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -495,9 +493,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/upload/user.jpg"
-               alt="seayouagain" />
+          <img class="site-author-image" itemprop="image" src="/upload/user.jpg" alt="seayouagain">
           <p class="site-author-name" itemprop="name">seayouagain</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
@@ -585,7 +581,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>
@@ -597,12 +593,12 @@
 
 
 <div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
   主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Pisces
   </a>
 </div>

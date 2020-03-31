@@ -6,15 +6,15 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -32,7 +32,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -66,21 +66,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="java,ArrayList," />
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="java,ArrayList,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
 
 
 
@@ -88,18 +88,18 @@
 
 
 <meta name="description" content="对于ArrayList已经继承了AbstractList还实现List接口一直心存疑惑.在我看来AbstractList已经实现了List，从语法上看ArrayList只需继承AbstractList即可，为何还要实现List接口？网上找了一些答案，大部分都是代码是冗余的或者是代码看起来更清晰，但是今天发现了一个更好的解释，记录下来。">
+<meta name="keywords" content="java,ArrayList">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ArrayList 继承AbstractList之余还实现List接口">
-<meta property="og:url" content="http://yoursite.com/2017/08/02/ArrayList-%E7%BB%A7%E6%89%BFAbstractList%E4%B9%8B%E4%BD%99%E8%BF%98%E5%AE%9E%E7%8E%B0List%E6%8E%A5%E5%8F%A3/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/08/02/ArrayList-继承AbstractList之余还实现List接口/index.html">
 <meta property="og:site_name" content="seayouagain">
 <meta property="og:description" content="对于ArrayList已经继承了AbstractList还实现List接口一直心存疑惑.在我看来AbstractList已经实现了List，从语法上看ArrayList只需继承AbstractList即可，为何还要实现List接口？网上找了一些答案，大部分都是代码是冗余的或者是代码看起来更清晰，但是今天发现了一个更好的解释，记录下来。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ou0fkrw0e.bkt.clouddn.com/pexels-photo-288621.jpeg">
-<meta property="article:published_time" content="2017-08-02T12:34:30.000Z">
-<meta property="article:modified_time" content="2017-08-02T14:00:32.000Z">
-<meta property="article:author" content="seayouagain">
-<meta property="article:tag" content="java">
-<meta property="article:tag" content="ArrayList">
+<meta property="og:updated_time" content="2017-08-02T14:00:32.000Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ArrayList 继承AbstractList之余还实现List接口">
+<meta name="twitter:description" content="对于ArrayList已经继承了AbstractList还实现List接口一直心存疑惑.在我看来AbstractList已经实现了List，从语法上看ArrayList只需继承AbstractList即可，为何还要实现List接口？网上找了一些答案，大部分都是代码是冗余的或者是代码看起来更清晰，但是今天发现了一个更好的解释，记录下来。">
 <meta name="twitter:image" content="http://ou0fkrw0e.bkt.clouddn.com/pexels-photo-288621.jpeg">
 
 
@@ -128,14 +128,14 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/02/ArrayList-继承AbstractList之余还实现List接口/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/02/ArrayList-继承AbstractList之余还实现List接口/">
 
 
 
 
 
   <title> ArrayList 继承AbstractList之余还实现List接口 | seayouagain </title>
-<meta name="generator" content="Hexo 4.2.0"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -168,7 +168,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">seayouagain</span>
         <span class="logo-line-after"><i></i></span>
@@ -198,7 +198,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -208,7 +208,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -218,7 +218,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -228,7 +228,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -238,7 +238,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -273,11 +273,11 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/02/ArrayList-%E7%BB%A7%E6%89%BFAbstractList%E4%B9%8B%E4%BD%99%E8%BF%98%E5%AE%9E%E7%8E%B0List%E6%8E%A5%E5%8F%A3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/02/ArrayList-继承AbstractList之余还实现List接口/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="seayouagain">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/upload/user.jpg">
     </span>
 
@@ -320,7 +320,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -367,12 +367,9 @@
       
 
       
-        <p>对于ArrayList已经继承了AbstractList还实现List接口一直心存疑惑.在我看来AbstractList已经实现了List，从语法上看ArrayList只需继承AbstractList即可，为何还要实现List接口？网上找了一些答案，大部分都是代码是冗余的或者是代码看起来更清晰，但是今天发现了一个更好的解释，记录下来。<br><img src="http://ou0fkrw0e.bkt.clouddn.com/pexels-photo-288621.jpeg" alt=""></p>
-<a id="more"></a>
-
+        <p>对于ArrayList已经继承了AbstractList还实现List接口一直心存疑惑.在我看来AbstractList已经实现了List，从语法上看ArrayList只需继承AbstractList即可，为何还要实现List接口？网上找了一些答案，大部分都是代码是冗余的或者是代码看起来更清晰，但是今天发现了一个更好的解释，记录下来。<br><img src="http://ou0fkrw0e.bkt.clouddn.com/pexels-photo-288621.jpeg" alt><br><a id="more"></a></p>
 <p><a href="https://stackoverflow.com/questions/2165204/why-does-linkedhashsete-extend-hashsete-and-implement-sete" target="_blank" rel="noopener">原文地址stackoverflow</a><br><a href="http://www.cnblogs.com/bluejavababy/p/4320545.html" target="_blank" rel="noopener">博客园地址</a></p>
-<p>先看一段代码在结构上模仿ArrayList，AbstractList，List的关系</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseClass</span> <span class="keyword">implements</span> <span class="title">MyInterface</span>, <span class="title">Cloneable</span>, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   System.out.println(<span class="string">"BaseClass.foo"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Class1</span> <span class="keyword">extends</span> <span class="title">BaseClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">super</span>.foo();</span><br><span class="line">   System.out.println(<span class="string">"Class1.foo"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Class2</span> <span class="keyword">extends</span> <span class="title">BaseClass</span> <span class="keyword">implements</span> <span class="title">MyInterface</span>, <span class="title">Cloneable</span>,</span></span><br><span class="line"><span class="class">   <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">super</span>.foo();</span><br><span class="line">   System.out.println(<span class="string">"Class2.foo"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  showInterfacesFor(BaseClass<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">  showInterfacesFor(Class1<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">  showInterfacesFor(Class2<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">showInterfacesFor</span><span class="params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">  System.out.printf(<span class="string">"%s --&gt; %s\n"</span>, clazz, Arrays.toString(clazz</span><br><span class="line">    .getInterfaces()));</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先看一段代码在结构上模仿ArrayList，AbstractList，List的关系<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyInterface</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseClass</span> <span class="keyword">implements</span> <span class="title">MyInterface</span>, <span class="title">Cloneable</span>, <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   System.out.println(<span class="string">"BaseClass.foo"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Class1</span> <span class="keyword">extends</span> <span class="title">BaseClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">super</span>.foo();</span><br><span class="line">   System.out.println(<span class="string">"Class1.foo"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Class2</span> <span class="keyword">extends</span> <span class="title">BaseClass</span> <span class="keyword">implements</span> <span class="title">MyInterface</span>, <span class="title">Cloneable</span>,</span></span><br><span class="line"><span class="class">   <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">super</span>.foo();</span><br><span class="line">   System.out.println(<span class="string">"Class2.foo"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  showInterfacesFor(BaseClass<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">  showInterfacesFor(Class1<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">  showInterfacesFor(Class2<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">showInterfacesFor</span><span class="params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">  System.out.printf(<span class="string">"%s --&gt; %s\n"</span>, clazz, Arrays.toString(clazz</span><br><span class="line">    .getInterfaces()));</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>输出结果如下：<br>class example.Test$BaseClass –&gt; [interface example.Test$MyInterface, interface java.lang.Cloneable, interface java.io.Serializable]<br>class example.Test$Class1 –&gt; []<br>class example.Test$Class2 –&gt; [interface example.Test$MyInterface, interface java.lang.Cloneable, interface java.io.Serializable]<br>从输出结果中可以看出Class1 本身并未实任何接口。<br>因此在JDK的动态代理中会有如下问题</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test2</span> <span class="keyword">extends</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  MyInterface c1 = <span class="keyword">new</span> Class1();</span><br><span class="line">  MyInterface c2 = <span class="keyword">new</span> Class2();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Note the order...</span></span><br><span class="line">  MyInterface proxy2 = createProxy(c2);</span><br><span class="line">  proxy2.foo();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// This fails with an unchecked exception</span></span><br><span class="line">  MyInterface proxy1 = createProxy(c1);</span><br><span class="line">  proxy1.foo();</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">createProxy</span><span class="params">(<span class="keyword">final</span> T obj)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> InvocationHandler handler = <span class="keyword">new</span> InvocationHandler() &#123;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span></span></span><br><span class="line"><span class="function">     <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">    System.out.printf(<span class="string">"About to call %s() on %s\n"</span>, method</span><br><span class="line">      .getName(), obj);</span><br><span class="line">    <span class="keyword">return</span> method.invoke(obj, args);</span><br><span class="line">   &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (T) Proxy.newProxyInstance(obj.getClass().getClassLoader(), obj</span><br><span class="line">    .getClass().getInterfaces(), handler);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出结果如下<br>About to call foo() on example.Test$Class2@578ceb<br>BaseClass.foo<br>Class2.foo<br>Exception in thread “main” java.lang.ClassCastException: $Proxy1 cannot be cast to example.Test$MyInterface<br> at example.Test2.main(Test2.java:23)</p>
@@ -423,7 +420,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/30/ArrayList%E6%BA%90%E7%A0%81/" rel="next" title="ArrayList部分源码">
+              <a href="/2017/07/30/ArrayList源码/" rel="next" title="ArrayList部分源码">
                 <i class="fa fa-chevron-left"></i> ArrayList部分源码
               </a>
             
@@ -433,7 +430,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/18/LinkedList%E9%83%A8%E5%88%86%E6%BA%90%E7%A0%81/" rel="prev" title="LinkedList部分源码">
+              <a href="/2017/08/18/LinkedList部分源码/" rel="prev" title="LinkedList部分源码">
                 LinkedList部分源码 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -487,9 +484,7 @@
 
       <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/upload/user.jpg"
-               alt="seayouagain" />
+          <img class="site-author-image" itemprop="image" src="/upload/user.jpg" alt="seayouagain">
           <p class="site-author-name" itemprop="name">seayouagain</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
@@ -561,7 +556,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>
@@ -573,12 +568,12 @@
 
 
 <div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
   主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Pisces
   </a>
 </div>

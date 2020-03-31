@@ -6,15 +6,15 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -32,7 +32,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -66,21 +66,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="java,String," />
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="java,String,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1">
 
 
 
@@ -88,19 +88,19 @@
 
 
 <meta name="description" content="最近简单浏览了String的源码,很清楚地知道为何String是不可变的,同时也简单浏览了和String相关比较密切的StringBuilder和StringBuffer的代码,在此记简单记录以下三者的区别.">
+<meta name="keywords" content="java,String">
 <meta property="og:type" content="article">
 <meta property="og:title" content="String,StringBuilder,StringBuffer不同">
-<meta property="og:url" content="http://yoursite.com/2017/12/02/String-StringBuilder-StringBuffer%E4%B8%8D%E5%90%8C/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/12/02/String-StringBuilder-StringBuffer不同/index.html">
 <meta property="og:site_name" content="seayouagain">
 <meta property="og:description" content="最近简单浏览了String的源码,很清楚地知道为何String是不可变的,同时也简单浏览了和String相关比较密切的StringBuilder和StringBuffer的代码,在此记简单记录以下三者的区别.">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://ou0fkrw0e.bkt.clouddn.com/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%90%9E%E7%AC%91.jpg">
 <meta property="og:image" content="http://ou0fkrw0e.bkt.clouddn.com/StringBuilder.bmp">
-<meta property="article:published_time" content="2017-12-02T09:13:35.000Z">
-<meta property="article:modified_time" content="2017-12-02T15:20:52.000Z">
-<meta property="article:author" content="seayouagain">
-<meta property="article:tag" content="java">
-<meta property="article:tag" content="String">
+<meta property="og:updated_time" content="2017-12-02T15:20:52.000Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="String,StringBuilder,StringBuffer不同">
+<meta name="twitter:description" content="最近简单浏览了String的源码,很清楚地知道为何String是不可变的,同时也简单浏览了和String相关比较密切的StringBuilder和StringBuffer的代码,在此记简单记录以下三者的区别.">
 <meta name="twitter:image" content="http://ou0fkrw0e.bkt.clouddn.com/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%90%9E%E7%AC%91.jpg">
 
 
@@ -129,14 +129,14 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/02/String-StringBuilder-StringBuffer不同/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/02/String-StringBuilder-StringBuffer不同/">
 
 
 
 
 
   <title> String,StringBuilder,StringBuffer不同 | seayouagain </title>
-<meta name="generator" content="Hexo 4.2.0"></head>
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
@@ -169,7 +169,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">seayouagain</span>
         <span class="logo-line-after"><i></i></span>
@@ -199,7 +199,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -209,7 +209,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -219,7 +219,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
             关于
           </a>
@@ -229,7 +229,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -239,7 +239,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -274,11 +274,11 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/02/String-StringBuilder-StringBuffer%E4%B8%8D%E5%90%8C/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/02/String-StringBuilder-StringBuffer不同/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="seayouagain">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/upload/user.jpg">
     </span>
 
@@ -321,7 +321,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -368,15 +368,11 @@
       
 
       
-        <p>最近简单浏览了String的源码,很清楚地知道为何String是不可变的,同时也简单浏览了和String相关比较密切的StringBuilder和StringBuffer的代码,在此记简单记录以下三者的区别.<br><img src="http://ou0fkrw0e.bkt.clouddn.com/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%90%9E%E7%AC%91.jpg" alt=""></p>
+        <p>最近简单浏览了String的源码,很清楚地知道为何String是不可变的,同时也简单浏览了和String相关比较密切的StringBuilder和StringBuffer的代码,在此记简单记录以下三者的区别.<br><img src="http://ou0fkrw0e.bkt.clouddn.com/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%90%9E%E7%AC%91.jpg" alt></p>
 <a id="more"></a>
-
-<h4 id="String"><a href="#String" class="headerlink" title="String"></a>String</h4><p>在JDK源码中String 定义为final类型,其内部主要维护了 final char[ ] ,由于类型设置为final因此String是不可变的,每次重新为String引用赋值.而String内的大多数方法都是对char[]进行的操作.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">    <span class="comment">/** The value is used for character storage. */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Cache the hash code for the string */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/** use serialVersionUID from JDK 1.0.2 for interoperability */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">6849794470754667710L</span>;</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h4><p>StringBuilder代表字符串变量其内部维护的也是一个char[] ,只是没有被final修饰,是可以改变的.下面是其类图<br><img src="http://ou0fkrw0e.bkt.clouddn.com/StringBuilder.bmp" alt=""></p>
-<h4 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h4><p>StringBuffer与StringBuilder从源码的角度及其相似,都是实现AbstractStringBuilder,提供了与StringBuilder相同的方法,但是其所有的非构造方法都有synchronized关键字.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractStringBuilder</span> <span class="keyword">implements</span> <span class="title">Appendable</span>, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The value is used for character storage.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">char</span>[] value;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The count is the number of characters used.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="String"><a href="#String" class="headerlink" title="String"></a>String</h4><p>在JDK源码中String 定义为final类型,其内部主要维护了 final char[ ] ,由于类型设置为final因此String是不可变的,每次重新为String引用赋值.而String内的大多数方法都是对char[]进行的操作.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">    <span class="comment">/** The value is used for character storage. */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Cache the hash code for the string */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/** use serialVersionUID from JDK 1.0.2 for interoperability */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">6849794470754667710L</span>;</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h4><p>StringBuilder代表字符串变量其内部维护的也是一个char[] ,只是没有被final修饰,是可以改变的.下面是其类图<br><img src="http://ou0fkrw0e.bkt.clouddn.com/StringBuilder.bmp" alt></p>
+<h4 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h4><p>StringBuffer与StringBuilder从源码的角度及其相似,都是实现AbstractStringBuilder,提供了与StringBuilder相同的方法,但是其所有的非构造方法都有synchronized关键字.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractStringBuilder</span> <span class="keyword">implements</span> <span class="title">Appendable</span>, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The value is used for character storage.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">char</span>[] value;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The count is the number of characters used.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -421,7 +417,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/13/Spring-Aop-%E5%86%85%E9%83%A8%E8%B0%83%E7%94%A8%E9%97%AE%E9%A2%98/" rel="next" title="Spring Aop 内部调用问题">
+              <a href="/2017/09/13/Spring-Aop-内部调用问题/" rel="next" title="Spring Aop 内部调用问题">
                 <i class="fa fa-chevron-left"></i> Spring Aop 内部调用问题
               </a>
             
@@ -431,7 +427,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/30/Comparator%E6%AF%94%E8%BE%83%E5%99%A8/" rel="prev" title="Comparator比较器">
+              <a href="/2018/05/30/Comparator比较器/" rel="prev" title="Comparator比较器">
                 Comparator比较器 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -483,7 +479,7 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -494,9 +490,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/upload/user.jpg"
-               alt="seayouagain" />
+          <img class="site-author-image" itemprop="image" src="/upload/user.jpg" alt="seayouagain">
           <p class="site-author-name" itemprop="name">seayouagain</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
@@ -584,7 +578,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>
@@ -596,12 +590,12 @@
 
 
 <div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
 </div>
 
 <div class="theme-info">
   主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Pisces
   </a>
 </div>
