@@ -1,0 +1,792 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,线程,生产者消费者," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="生产者－消费者模型在并发操作中很常见可以简单归纳为以下操作：1.生产者持续生产,直到缓存区无法容纳；如果缓存区可以容纳，继续生产;2.消费者持续消费,直到缓存区不够消费;　如果缓存区可以消费,继续进行消费;以下介绍三种生产者消费者java简单实现.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生产者消费者实现">
+<meta property="og:url" content="http://yoursite.com/2018/06/11/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="seayouagain">
+<meta property="og:description" content="生产者－消费者模型在并发操作中很常见可以简单归纳为以下操作：1.生产者持续生产,直到缓存区无法容纳；如果缓存区可以容纳，继续生产;2.消费者持续消费,直到缓存区不够消费;　如果缓存区可以消费,继续进行消费;以下介绍三种生产者消费者java简单实现.">
+<meta property="article:published_time" content="2018-06-11T12:10:42.000Z">
+<meta property="article:modified_time" content="2018-06-15T14:26:37.956Z">
+<meta property="article:author" content="seayouagain">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="线程">
+<meta property="article:tag" content="生产者消费者">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/11/生产者消费者实现/"/>
+
+
+
+
+
+  <title> 生产者消费者实现 | seayouagain </title>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">seayouagain</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/11/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="seayouagain">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/upload/user.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="seayouagain">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                生产者消费者实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-11T20:10:42+08:00">
+                2018-06-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>生产者－消费者模型在并发操作中很常见可以简单归纳为以下操作：<br>1.生产者持续生产,直到缓存区无法容纳；如果缓存区可以容纳，继续生产;<br>2.消费者持续消费,直到缓存区不够消费;　如果缓存区可以消费,继续进行消费;<br>以下介绍三种生产者消费者java简单实现.</p>
+<a id="more"></a>
+
+<h3 id="方法一-wait-notify"><a href="#方法一-wait-notify" class="headerlink" title="方法一　wait notify"></a>方法一　wait notify</h3><p>使用Object类中的wait和notify机制进行控制.如果缓存区已满则生产者wait() 等待消费，如果缓存区为空则消费者wait() 等待生产;生产或者消费后缓存区不满或不为空则唤醒(notify)，实现代码如下:<br>Resource 资源类包括成员变量maxValue(最大容量),num（当前容量）；除此之外还包括put(int addValue) 如果资源类可以通纳addValue 则生产addValue。remove(int removeValue) 如果资源类足够消费removeValue 则消费removeValue。<strong>synchronized修饰防止多线程同时访问，另外wait 和notify之前也要先获取锁</strong></p>
+<blockquote>
+<p>public final void wait()<br>                throws InterruptedException<br>Causes the current thread to wait until another thread invokes the notify() method or the notifyAll() method for this object. In other words, this method behaves exactly as if it simply performs the call wait(0).<br>The current thread must own this object’s monitor. The thread releases ownership of this monitor and waits until another thread notifies threads waiting on this object’s monitor to wake up either through a call to the notify method or the notifyAll method. The thread then waits until it can re-obtain ownership of the monitor and resumes execution.</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 资源类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Resource</span> </span>&#123;</span><br><span class="line">    <span class="comment">//容器</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//最大容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxValue = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Resource</span><span class="params">(<span class="keyword">int</span> maxValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.maxValue = maxValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生产</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> addValue</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> addValue)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//注意这里变成while</span></span><br><span class="line">        <span class="keyword">if</span> (num + addValue &gt; maxValue) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"无法添加等待消费:当前值为－－－&gt;"</span> + num);</span><br><span class="line">                <span class="keyword">this</span>.wait();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        num += addValue;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">" 添加:"</span> + addValue + <span class="string">"---&gt;当前值:"</span> + num);</span><br><span class="line">        <span class="keyword">this</span>.notifyAll();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 消费个数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> removeValue</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> removeValue)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//注意这里可能变成while</span></span><br><span class="line">        <span class="keyword">if</span> (num &lt; removeValue) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">"库存不足待生产:当前值为－－－&gt;"</span> + num);</span><br><span class="line">                <span class="keyword">this</span>.wait();                 </span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        num -= removeValue;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">" 消费:"</span> + removeValue + <span class="string">"---&gt;当前值:"</span> + num);</span><br><span class="line">        <span class="keyword">this</span>.notifyAll();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>生产者代码如下：10毫秒准备时间然后向仓库放入货物</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 生产者</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//仓库</span></span><br><span class="line">    <span class="keyword">private</span> Resource resource;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span>  <span class="keyword">boolean</span> run = <span class="keyword">true</span>;</span><br><span class="line">    <span class="comment">//生产数量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> addValue;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Producer</span><span class="params">(Resource resource,String name,<span class="keyword">int</span> addValue)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">        <span class="keyword">this</span>.resource =resource;</span><br><span class="line">        <span class="keyword">this</span>.addValue =addValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (run)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">10</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            resource.put(addValue);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.getName()+<span class="string">"线程停止工作"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span>  <span class="title">threadOver</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.run = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>消费者同生产者　　从仓库中拿取货物然后话费20毫秒消费掉</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 消费者</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="comment">//仓库</span></span><br><span class="line">    <span class="keyword">private</span> Resource resource;</span><br><span class="line">    <span class="comment">//控制线程停止</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> run = <span class="keyword">true</span>;</span><br><span class="line">    <span class="comment">//消费的数量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> removeValue;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Consumer</span><span class="params">(Resource resource, String name, <span class="keyword">int</span> removeValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">        <span class="keyword">this</span>.resource = resource;</span><br><span class="line">        <span class="keyword">this</span>.removeValue = removeValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (run) &#123;</span><br><span class="line">            resource.remove(<span class="keyword">this</span>.removeValue);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">20</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.getName() + <span class="string">"线程停止工作"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 停止线程</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">threadOver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.run = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主程序与运行部分结果如下 包含两个生产者与两个消费者,缓存区容量定为50，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Resource resource = <span class="keyword">new</span> Resource(<span class="number">50</span>);</span><br><span class="line">        Producer producer1 = <span class="keyword">new</span> Producer(resource,<span class="string">"生产者1"</span>,<span class="number">1</span>);</span><br><span class="line">        Producer producer2 = <span class="keyword">new</span> Producer(resource,<span class="string">"生产者2"</span>,<span class="number">1</span>);</span><br><span class="line">        Consumer consumer1= <span class="keyword">new</span> Consumer(resource,<span class="string">"消费者1"</span>,<span class="number">1</span>);</span><br><span class="line">        Consumer consumer2= <span class="keyword">new</span> Consumer(resource,<span class="string">"消费者2"</span>,<span class="number">1</span>);</span><br><span class="line">        producer1.start();</span><br><span class="line">        producer2.start();</span><br><span class="line">        consumer1.start();</span><br><span class="line">        consumer2.start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        producer1.threadOver();</span><br><span class="line">        producer2.threadOver();</span><br><span class="line">        consumer1.threadOver();</span><br><span class="line">        consumer2.threadOver();</span><br><span class="line">        System.out.println(<span class="string">"主线程结束"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">result:部分</span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">47</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">48</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">48</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">主线程结束</span><br><span class="line">消费者<span class="number">1</span>线程停止工作</span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">51</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">51</span></span><br><span class="line">消费者<span class="number">2</span>线程停止工作</span><br></pre></td></tr></table></figure>
+
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>分析结果　存在两个问题　</p>
+<p>１．出现51&gt;最大容量</p>
+<p>２．生产者线程没有关闭</p>
+<p>分析如下：由于主程序存在两个生产者　所以存在生产者１执行this.notifyAll();后唤醒的是生产者２这样就可能出现51 这样的值，在this.wait() this.notifyAll() 代码后分别加入下面代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(Thread.currentThread().getName() + <span class="string">"　wait结束当前值为－－－&gt;"</span> + num);</span><br><span class="line">System.out.println(Thread.currentThread().getName() + <span class="string">"执行notifyAll结束---&gt;当前值:"</span> + num);</span><br><span class="line">result:部分</span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>执行notifyAll结束---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>　wait结束当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">生产者<span class="number">2</span>执行notifyAll结束---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">消费者<span class="number">1</span>执行notifyAll结束---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">消费者<span class="number">2</span>执行notifyAll结束---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span>　wait结束当前值为－－－&gt;<span class="number">49</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>执行notifyAll结束---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>　wait结束当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">生产者<span class="number">1</span>执行notifyAll结束---&gt;当前值:<span class="number">51</span></span><br><span class="line">消费者<span class="number">1</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">消费者<span class="number">1</span>执行notifyAll结束---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">消费者<span class="number">2</span> 消费:<span class="number">1</span>---&gt;当前值:<span class="number">49</span></span><br><span class="line">消费者<span class="number">2</span>执行notifyAll结束---&gt;当前值:<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span>　wait结束当前值为－－－&gt;<span class="number">49</span></span><br><span class="line">生产者<span class="number">1</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">1</span>执行notifyAll结束---&gt;当前值:<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span>　wait结束当前值为－－－&gt;<span class="number">50</span></span><br><span class="line">生产者<span class="number">2</span> 添加:<span class="number">1</span>---&gt;当前值:<span class="number">51</span></span><br><span class="line">生产者<span class="number">2</span>执行notifyAll结束---&gt;当前值:<span class="number">51</span></span><br><span class="line">主线程结束</span><br><span class="line">消费者<span class="number">1</span>线程停止工作</span><br><span class="line">生产者<span class="number">1</span>无法添加等待消费:当前值为－－－&gt;<span class="number">51</span></span><br><span class="line">生产者<span class="number">2</span>无法添加等待消费:当前值为－－－&gt;<span class="number">51</span></span><br><span class="line">消费者<span class="number">2</span>线程停止工作</span><br></pre></td></tr></table></figure>
+
+<p>按照运行结果来看　确实是这样的。<strong>把Resource类中检查是否可添加　获取值的if 改为while 可以解决此</strong></p>
+<blockquote>
+<p><a href="http://www.importnew.com/10173.html" target="_blank" rel="noopener">http://www.importnew.com/10173.html</a></p>
+<p>As in the one argument version, interrupts and spurious wakeups are possible, and this method should always be used in a loop:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">synchronized (obj) &#123;</span><br><span class="line">    while (&lt;condition does not hold&gt;)</span><br><span class="line">        obj.wait();</span><br><span class="line">    ... &#x2F;&#x2F; Perform action appropriate to condition</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>对于生产者的两个线程没有正常结束我的理解是两个生产者都已经在wait() 并且可以执行notifyAll()的线程已经结束。</strong></p>
+<h3 id="方法二-使用-ReentrantLock和Condition"><a href="#方法二-使用-ReentrantLock和Condition" class="headerlink" title="方法二　使用　ReentrantLock和Condition"></a>方法二　使用　ReentrantLock和Condition</h3><p>ReentrantLock 提供了与synchronized相同的能力并再其基础上提供扩展，如获取锁可中断的lockInterruptibly()以及tryLock()。使用时需要注意释放锁时最好放在finally块中。<br>ReentrantLock提供newCondition()方法可以获取Condition，其作用与Object类中的(wait, notify and notifyAll) 基本相同。可以参考如下代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Resource2</span> </span>&#123;</span><br><span class="line">    <span class="comment">//容器</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//最大容量</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> maxValue = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//锁</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="comment">//非满</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Condition notFull = lock.newCondition();</span><br><span class="line">    <span class="comment">//非空</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Condition notEmpty = lock.newCondition();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Resource2</span><span class="params">(<span class="keyword">int</span> maxValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.maxValue = maxValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 生产</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> addValue</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(<span class="keyword">int</span> addValue)</span> </span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (num + addValue &gt; maxValue) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"无法添加等待消费:当前值为－－－&gt;"</span> + num);</span><br><span class="line">                    notFull.await();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            num += addValue;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" 添加:"</span> + addValue + <span class="string">"---&gt;当前值:"</span> + num);</span><br><span class="line">            notEmpty.signal();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 消费个数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> removeValue</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> removeValue)</span> </span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (num &lt; removeValue) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    System.out.println(Thread.currentThread().getName() + <span class="string">"库存不足待生产:当前值为－－－&gt;"</span> + num);</span><br><span class="line">                    notEmpty.await();</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            num -= removeValue;</span><br><span class="line">            System.out.println(Thread.currentThread().getName() + <span class="string">" 消费:"</span> + removeValue + <span class="string">"---&gt;当前值:"</span> + num);</span><br><span class="line">            notFull.signal();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这里有两个Condition对象分别代表非空条件以及非满条件，当缓存区已满notFull 等待　,如果缓存区已经空notEmpty等待.因为这里存在两个条件并且是相互唤醒所有不存在方法一中的生产者唤醒生产者的问题。</p>
+<h3 id="方法三-阻塞队列-BlockingQueue"><a href="#方法三-阻塞队列-BlockingQueue" class="headerlink" title="方法三　阻塞队列　BlockingQueue"></a>方法三　阻塞队列　BlockingQueue</h3><p>方法一与方法二需要自己实现Resource类,在Resource类中实现同步控制逻辑，在BlockingQueue中同步逻辑不需要自己实现，因为BlockingQueue实现类中已经实现同步机制　如ArrayBlockingQueue　、LinkedBlockingQueue等，实现原理与方法二类似，通过ReentrantLock与Condition实现，下面是简单代码演示。<br>主程序　使用ArrayBlockingQueue作为缓存区　最大缓存为50个;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//声明阻塞队列队最大为50</span></span><br><span class="line">       BlockingQueue&lt;String&gt; queue = <span class="keyword">new</span> ArrayBlockingQueue&lt;&gt;(<span class="number">50</span>);</span><br><span class="line">       <span class="comment">//原子操作自增</span></span><br><span class="line">       AtomicInteger count = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line">       Producer3 producer1 = <span class="keyword">new</span> Producer3(queue, <span class="string">"生产者1"</span>,count);</span><br><span class="line">       Producer3 producer2 = <span class="keyword">new</span> Producer3(queue, <span class="string">"生产者2"</span>,count);</span><br><span class="line">       Consumer3 consumer1 = <span class="keyword">new</span> Consumer3(queue, <span class="string">"消费者1"</span>);</span><br><span class="line">       Consumer3 consumer2 = <span class="keyword">new</span> Consumer3(queue, <span class="string">"消费者2"</span>);</span><br><span class="line">       producer1.start();</span><br><span class="line">       producer2.start();</span><br><span class="line">       consumer1.start();</span><br><span class="line">       consumer2.start();</span><br><span class="line">       <span class="keyword">try</span> &#123;</span><br><span class="line">           Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">       &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">       producer1.threadOver();</span><br><span class="line">       producer2.threadOver();</span><br><span class="line">       consumer1.threadOver();</span><br><span class="line">       consumer2.threadOver();</span><br><span class="line">       System.out.println(<span class="string">"主线程结束"</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>生产者代码 循环使得count自增放入队列中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer3</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> run = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> AtomicInteger count;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> BlockingQueue&lt;String&gt; queue;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Producer3</span><span class="params">(BlockingQueue&lt;String&gt; queue, String name,AtomicInteger count)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">        <span class="keyword">this</span>.queue = queue;</span><br><span class="line">        <span class="keyword">this</span>.count = count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (run) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">10</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                String str =String.valueOf(count.incrementAndGet());</span><br><span class="line">                queue.put(str);</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" -----添加成功: "</span>+ str+<span class="string">" 成功"</span>);</span><br><span class="line"></span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.getName() + <span class="string">"线程停止工作"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">threadOver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.run = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>消费者代码　循环从队列中获取元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer3</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//控制线程停止</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> run = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> BlockingQueue&lt;String&gt; queue;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Consumer3</span><span class="params">(BlockingQueue&lt;String&gt; queue, String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">        <span class="keyword">this</span>.queue = queue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (run) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                Thread.sleep(<span class="number">20</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            String take = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                take = queue.take();</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" 移除　"</span>+take+<span class="string">" 成功"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.getName() + <span class="string">"线程停止工作"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 停止线程</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">threadOver</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.run = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>部分运行结果如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">124</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">74</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">75</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">76</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">126</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">125</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">77</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">127</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">78</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">128</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">79</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">80</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">129</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">130</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">81</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">131</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">82</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">132</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">83</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">133</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">84</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">134</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">85</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">86</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">135</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">136</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">87</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">137</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">88</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">138</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">89</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">139</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">90</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">140</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">91</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">141</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">92</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">142</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">93</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">143</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">94</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">144</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">95</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">145</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">96</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">146</span> 成功</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">97</span> 成功</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">147</span> 成功</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">98</span> 成功</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">148</span> 成功</span><br><span class="line">主线程结束</span><br><span class="line">消费者<span class="number">1</span> 移除　<span class="number">99</span> 成功</span><br><span class="line">消费者<span class="number">1</span>线程停止工作</span><br><span class="line">生产者<span class="number">1</span> -----添加成功: <span class="number">149</span> 成功</span><br><span class="line">生产者<span class="number">1</span>线程停止工作</span><br><span class="line">消费者<span class="number">2</span> 移除　<span class="number">100</span> 成功</span><br><span class="line">消费者<span class="number">2</span>线程停止工作</span><br><span class="line">生产者<span class="number">2</span> -----添加成功: <span class="number">150</span> 成功</span><br><span class="line">生产者<span class="number">2</span>线程停止工作</span><br></pre></td></tr></table></figure>
+<p>从运行结果中可以看出消费的count 在生产之后，并且队列最大可保存50个元素。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/%E7%BA%BF%E7%A8%8B/" rel="tag"># 线程</a>
+          
+            <a href="/tags/%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85/" rel="tag"># 生产者消费者</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/31/%E5%81%9C%E6%AD%A2%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95/" rel="next" title="停止线程的方法">
+                <i class="fa fa-chevron-left"></i> 停止线程的方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/22/JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA/" rel="prev" title="JVM内存区域学习笔记">
+                JVM内存区域学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTgyOS82Mzk1"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/upload/user.jpg"
+               alt="seayouagain" />
+          <p class="site-author-name" itemprop="name">seayouagain</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一-wait-notify"><span class="nav-number">1.</span> <span class="nav-text">方法一　wait notify</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-number">1.1.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二-使用-ReentrantLock和Condition"><span class="nav-number">2.</span> <span class="nav-text">方法二　使用　ReentrantLock和Condition</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法三-阻塞队列-BlockingQueue"><span class="nav-number">3.</span> <span class="nav-text">方法三　阻塞队列　BlockingQueue</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">seayouagain</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
