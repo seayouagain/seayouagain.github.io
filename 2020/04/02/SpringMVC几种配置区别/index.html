@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="java,String,">
+  <meta name="keywords" content="java,Spring,SpringMvc,">
 
 
 
@@ -87,21 +87,20 @@
 
 
 
-<meta name="description" content="最近简单浏览了String的源码,很清楚地知道为何String是不可变的,同时也简单浏览了和String相关比较密切的StringBuilder和StringBuffer的代码,在此记简单记录以下三者的区别.">
-<meta name="keywords" content="java,String">
+<meta name="description" content="简单整理SpringMVC 中WebMvcConfigurer，WebMvcConfigurerAdapter，WebMvcConfigurationSupport 的区别。">
+<meta name="keywords" content="java,Spring,SpringMvc">
 <meta property="og:type" content="article">
-<meta property="og:title" content="String,StringBuilder,StringBuffer不同">
-<meta property="og:url" content="http://yoursite.com/2017/12/02/String-StringBuilder-StringBuffer不同/index.html">
+<meta property="og:title" content="WebMvcConfigurer，WebMvcConfigurerAdapter，WebMvcConfigurationSupport的区别">
+<meta property="og:url" content="http://yoursite.com/2020/04/02/SpringMVC几种配置区别/index.html">
 <meta property="og:site_name" content="seayouagain">
-<meta property="og:description" content="最近简单浏览了String的源码,很清楚地知道为何String是不可变的,同时也简单浏览了和String相关比较密切的StringBuilder和StringBuffer的代码,在此记简单记录以下三者的区别.">
+<meta property="og:description" content="简单整理SpringMVC 中WebMvcConfigurer，WebMvcConfigurerAdapter，WebMvcConfigurationSupport 的区别。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ou0fkrw0e.bkt.clouddn.com/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%90%9E%E7%AC%91.jpg">
-<meta property="og:image" content="http://ou0fkrw0e.bkt.clouddn.com/StringBuilder.bmp">
-<meta property="og:updated_time" content="2017-12-02T15:20:52.000Z">
+<meta property="og:image" content="http://yoursite.com/images/norway-4984433_1920.jpg">
+<meta property="og:updated_time" content="2020-04-02T14:32:53.984Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="String,StringBuilder,StringBuffer不同">
-<meta name="twitter:description" content="最近简单浏览了String的源码,很清楚地知道为何String是不可变的,同时也简单浏览了和String相关比较密切的StringBuilder和StringBuffer的代码,在此记简单记录以下三者的区别.">
-<meta name="twitter:image" content="http://ou0fkrw0e.bkt.clouddn.com/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%90%9E%E7%AC%91.jpg">
+<meta name="twitter:title" content="WebMvcConfigurer，WebMvcConfigurerAdapter，WebMvcConfigurationSupport的区别">
+<meta name="twitter:description" content="简单整理SpringMVC 中WebMvcConfigurer，WebMvcConfigurerAdapter，WebMvcConfigurationSupport 的区别。">
+<meta name="twitter:image" content="http://yoursite.com/images/norway-4984433_1920.jpg">
 
 
 
@@ -129,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/02/String-StringBuilder-StringBuffer不同/">
+  <link rel="canonical" href="http://yoursite.com/2020/04/02/SpringMVC几种配置区别/">
 
 
 
 
 
-  <title> String,StringBuilder,StringBuffer不同 | seayouagain </title>
+  <title> WebMvcConfigurer，WebMvcConfigurerAdapter，WebMvcConfigurationSupport的区别 | seayouagain </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -274,7 +273,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/02/String-StringBuilder-StringBuffer不同/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/02/SpringMVC几种配置区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="seayouagain">
@@ -295,7 +294,7 @@
             
             
               
-                String,StringBuilder,StringBuffer不同
+                WebMvcConfigurer，WebMvcConfigurerAdapter，WebMvcConfigurationSupport的区别
               
             
           </h1>
@@ -310,8 +309,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-02T17:13:35+08:00">
-                2017-12-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-02T22:05:15+08:00">
+                2020-04-02
               </time>
             
 
@@ -333,8 +332,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">java</span>
+                  <a href="/categories/spring/" itemprop="url" rel="index">
+                    <span itemprop="name">spring</span>
                   </a>
                 </span>
 
@@ -368,11 +367,27 @@
       
 
       
-        <p>最近简单浏览了String的源码,很清楚地知道为何String是不可变的,同时也简单浏览了和String相关比较密切的StringBuilder和StringBuffer的代码,在此记简单记录以下三者的区别.<br><img src="http://ou0fkrw0e.bkt.clouddn.com/%E7%A8%8B%E5%BA%8F%E5%91%98%E6%90%9E%E7%AC%91.jpg" alt></p>
+        <p> 简单整理SpringMVC 中WebMvcConfigurer，WebMvcConfigurerAdapter，WebMvcConfigurationSupport</p>
+<p>的区别。</p>
+<p><img src="/images/norway-4984433_1920.jpg" alt></p>
 <a id="more"></a>
-<h4 id="String"><a href="#String" class="headerlink" title="String"></a>String</h4><p>在JDK源码中String 定义为final类型,其内部主要维护了 final char[ ] ,由于类型设置为final因此String是不可变的,每次重新为String引用赋值.而String内的大多数方法都是对char[]进行的操作.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">    <span class="comment">/** The value is used for character storage. */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">char</span> value[];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** Cache the hash code for the string */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/** use serialVersionUID from JDK 1.0.2 for interoperability */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">6849794470754667710L</span>;</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h4><p>StringBuilder代表字符串变量其内部维护的也是一个char[] ,只是没有被final修饰,是可以改变的.下面是其类图<br><img src="http://ou0fkrw0e.bkt.clouddn.com/StringBuilder.bmp" alt></p>
-<h4 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h4><p>StringBuffer与StringBuilder从源码的角度及其相似,都是实现AbstractStringBuilder,提供了与StringBuilder相同的方法,但是其所有的非构造方法都有synchronized关键字.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractStringBuilder</span> <span class="keyword">implements</span> <span class="title">Appendable</span>, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The value is used for character storage.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">char</span>[] value;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The count is the number of characters used.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">int</span> count;</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="1-WebMvcConfigurer"><a href="#1-WebMvcConfigurer" class="headerlink" title="1. WebMvcConfigurer"></a>1. WebMvcConfigurer</h5><p>Spring 的WebMvcConfigurer 是一个<strong>接口</strong> 提供了简单常用方法可供定制SpringMVC的配置。</p>
+<h5 id="2-WebMvcConfigurerAdapter"><a href="#2-WebMvcConfigurerAdapter" class="headerlink" title="2. WebMvcConfigurerAdapter"></a>2. WebMvcConfigurerAdapter</h5><p>WebMvcConfigurerAdapter 是一个实现了WebMvcConfigurer的抽象类，已经被弃用.</p>
+<h5 id="3-WebMvcConfigurationSupport"><a href="#3-WebMvcConfigurationSupport" class="headerlink" title="3. WebMvcConfigurationSupport"></a>3. WebMvcConfigurationSupport</h5><p>提供SpringBoot 默认MVC配置.@EnableWebMvc就是其实现的一种,当使用@EnableWebMvc注解在一个 @Configuration 类上，实际是导入了一个WebMvcConfigurationSupport的实现。</p>
+<p><strong>@EnableWebMvc注解实际是导入 WebMvcConfigurationSupport 的默认配置的一种实现方式DelegatingWebMvcConfiguration</strong></p>
+<blockquote>
+<p>This is the main class providing the configuration behind the MVC Java config. It is typically imported by adding @EnableWebMvc to an application @Configuration class. An alternative more advanced option is to extend directly from this class and override methods as necessary, remembering to add @Configuration to the subclass and @Bean to overridden @Bean methods. For more details see the javadoc of @EnableWebMvc.</p>
+</blockquote>
+<h5 id="4-其他"><a href="#4-其他" class="headerlink" title="4. 其他"></a>4. 其他</h5><p>如果想保留SpringbootMVC 配置 并加一些MVC 配置 需要实现WebMvcConfigurer 并加@Configuration注解. 不需要EnableWebMvc注解</p>
+<blockquote>
+<p>If you want to keep Spring Boot MVC features and you want to add additional MVC configuration (interceptors, formatters, view controllers, and other features), you can add your own @Configuration class of type WebMvcConfigurer but without @EnableWebMvc.</p>
+</blockquote>
+<p>使用“implement WebMvcConfigurer + @EnableWebMvc”，会屏蔽掉springBoot的@EnableAutoConfiguration中的设置</p>
+<p>区别表<br>| WebMvcConfigurationSupport                                   | WebMvcConfigurerAdapter                                      |<br>| ———————————————————— | ———————————————————— |<br>| In the Spring MVC framework, this is the main class providing the configuration behind the MVC Java config. | This is simple adapter class for customizing some of the default configuration. |<br>| We could use the @EnableWebMvc annotation to import the configuration of this class automatically. | This is not related to the @EnableWebMvc annotation.         |<br>| We could extend WebMvcConfigurationSupport class to prevent the default configuration imported by the @EnableWebMvc annotation. | We could extend WebMvcConfigurerAdapter class to customize some of the default configuration imported by @EnableWebMvc annotation. |<br>| In the java configuration file for spring mvc either we could use @EnableWebMvc annotation or extend WebMvcConfigurationSupport class | If we are extending this class, still required to use @EnableWebMvc annotation, otherwise application will not work. |</p>
+<p>1、springboot默认可以访问以下路径文件(见ResourceProperties)：<br>    classpath:/static<br>    classpath:/public<br>    classpath:/resources<br>    classpath:/META-INF/resources<br>   当使用了@EnableWebMvc时，默认的静态资源访问无效了因为默认情况下mvc使用的配置是WebMvcAutoConfiguration，加入该配置变成了WebMvcConfigurationSupport<br>2、@EnableWebMvc、WebMvcConfigurationSupport、WebMvcConfigurationAdapter<br>    @EnableWebMvc=WebMvcConfigurationSupport，使用了@EnableWebMvc注解等于扩展了WebMvcConfigurationSupport但是没有重写任何方法<br>    @EnableWebMvc+extends WebMvcConfigurationAdapter，在扩展的类中重写父类的方法即可，这种方式会屏蔽springboot的WebMvcAutoConfiguration中的设置<br>    @EnableWebMvc+extends WebMvcConfigurationSupport 只会使用@EnableWebMvc<br>    extends WebMvcConfigurationSupport，在扩展的类中重写父类的方法即可，这种方式会屏蔽springboot的@WebMvcAutoConfiguration中的设置<br>    extends WebMvcConfigurationAdapter，在扩展的类中重写父类的方法即可，这种方式依旧使用springboot的WebMvcAutoConfiguration中的设置<br>    在springboot2.x中，WebMvcConfigurationAdapter已经过时，通过实现接口WebMvcConfigurer可以替代原有规则</p>
+<h5 id="5-总结"><a href="#5-总结" class="headerlink" title="5 总结"></a>5 总结</h5><p>一般情况使用Springboot应用时 使用@EnableWebMvc(默认配置)+WebMvcConfigurer即可,但有些情况需要重写WebMvcConfigurationSupport的方法。</p>
+<p>[1] <a href="https://dzone.com/articles/how-spring-boot-initialize-the-spring-mvc-applicat" target="_blank" rel="noopener">https://dzone.com/articles/how-spring-boot-initialize-the-spring-mvc-applicat</a></p>
+<p>[2] <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/config/annotation/EnableWebMvc.html" target="_blank" rel="noopener">https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/config/annotation/EnableWebMvc.html</a><br>[3] <a href="https://cloud.tencent.com/developer/article/1482215" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1482215</a></p>
 
       
     </div>
@@ -404,7 +419,9 @@
           
             <a href="/tags/java/" rel="tag"># java</a>
           
-            <a href="/tags/String/" rel="tag"># String</a>
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+            <a href="/tags/SpringMvc/" rel="tag"># SpringMvc</a>
           
         </div>
       
@@ -417,8 +434,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/13/Spring-Aop-内部调用问题/" rel="next" title="Spring Aop 内部调用问题">
-                <i class="fa fa-chevron-left"></i> Spring Aop 内部调用问题
+              <a href="/2018/07/04/垃圾回收算法/" rel="next" title="垃圾回收算法">
+                <i class="fa fa-chevron-left"></i> 垃圾回收算法
               </a>
             
           </div>
@@ -426,10 +443,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/30/Comparator比较器/" rel="prev" title="Comparator比较器">
-                Comparator比较器 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -558,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#String"><span class="nav-number">1.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#StringBuilder"><span class="nav-number">2.</span> <span class="nav-text">StringBuilder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#StringBuffer"><span class="nav-number">3.</span> <span class="nav-text">StringBuffer</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-WebMvcConfigurer"><span class="nav-number">1.</span> <span class="nav-text">1. WebMvcConfigurer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-WebMvcConfigurerAdapter"><span class="nav-number">2.</span> <span class="nav-text">2. WebMvcConfigurerAdapter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-WebMvcConfigurationSupport"><span class="nav-number">3.</span> <span class="nav-text">3. WebMvcConfigurationSupport</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-其他"><span class="nav-number">4.</span> <span class="nav-text">4. 其他</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-总结"><span class="nav-number">5.</span> <span class="nav-text">5 总结</span></a></li></ol></div>
             
 
           </div>
