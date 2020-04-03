@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="java,线程停止,线程,">
+  <meta name="keywords" content="java,线程,线程停止,">
 
 
 
@@ -88,19 +88,19 @@
 
 
 <meta name="description" content="线程启动很简单只需要调用start()方法即可运行线程。Thread.stop()方法已经被废弃掉　因为该方法不安全。下面介绍两种线程外停止线程的方法.">
-<meta name="keywords" content="java,线程停止,线程">
+<meta name="keywords" content="java,线程,线程停止">
 <meta property="og:type" content="article">
 <meta property="og:title" content="停止线程的方法">
 <meta property="og:url" content="http://yoursite.com/2018/05/31/停止线程的方法/index.html">
 <meta property="og:site_name" content="seayouagain">
 <meta property="og:description" content="线程启动很简单只需要调用start()方法即可运行线程。Thread.stop()方法已经被废弃掉　因为该方法不安全。下面介绍两种线程外停止线程的方法.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ou0fkrw0e.bkt.clouddn.com/thread-states.png">
-<meta property="og:updated_time" content="2018-06-04T13:47:41.198Z">
+<meta property="og:image" content="http://yoursite.com/images/DSC09018-2210x1473.jpg">
+<meta property="og:updated_time" content="2020-04-03T14:32:08.809Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="停止线程的方法">
 <meta name="twitter:description" content="线程启动很简单只需要调用start()方法即可运行线程。Thread.stop()方法已经被废弃掉　因为该方法不安全。下面介绍两种线程外停止线程的方法.">
-<meta name="twitter:image" content="http://ou0fkrw0e.bkt.clouddn.com/thread-states.png">
+<meta name="twitter:image" content="http://yoursite.com/images/DSC09018-2210x1473.jpg">
 
 
 
@@ -367,7 +367,7 @@
       
 
       
-        <p>线程启动很简单只需要调用start()方法即可运行线程。Thread.stop()方法已经被废弃掉　因为该方法不安全。下面介绍两种线程外停止线程的方法.<br><img src="http://ou0fkrw0e.bkt.clouddn.com/thread-states.png" alt="图片来源google"><br><a id="more"></a></p>
+        <p>线程启动很简单只需要调用start()方法即可运行线程。Thread.stop()方法已经被废弃掉　因为该方法不安全。下面介绍两种线程外停止线程的方法.<br><img src="/images/DSC09018-2210x1473.jpg" alt><br><a id="more"></a></p>
 <h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>线程中使用变量作为线程运行和停止的标记，并提供public 方法修改此变量　如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadStop</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span>  <span class="keyword">volatile</span>  <span class="keyword">boolean</span> runFlag = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (runFlag)&#123;</span><br><span class="line">            System.out.println(<span class="string">"ThreadStop run......"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"ThreadStop stop"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.runFlag = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>main 函数　以及其一种输出结果如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ThreadStop threadStop = <span class="keyword">new</span> ThreadStop();</span><br><span class="line">        <span class="comment">//运行</span></span><br><span class="line">        <span class="keyword">new</span> Thread(threadStop).start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">5</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"主线程即将停止ThreadStop"</span>);</span><br><span class="line">        <span class="comment">//停止</span></span><br><span class="line">        threadStop.stop();</span><br><span class="line">        System.out.println(<span class="string">"主线程结束"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">ThreadStop run......</span><br><span class="line">主线程即将停止ThreadStop</span><br><span class="line">主线程结束</span><br><span class="line">ThreadStop stop</span><br></pre></td></tr></table></figure></p>
 <p>采用这种方式需要注意　变量需要用volatile修改　其保证内存可见性，也就是主线程修改后threadStop 中看到的是修改后的值二并非原值。</p>
@@ -417,9 +417,9 @@
           
             <a href="/tags/java/" rel="tag"># java</a>
           
-            <a href="/tags/线程停止/" rel="tag"># 线程停止</a>
-          
             <a href="/tags/线程/" rel="tag"># 线程</a>
+          
+            <a href="/tags/线程停止/" rel="tag"># 线程停止</a>
           
         </div>
       

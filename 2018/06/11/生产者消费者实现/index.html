@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="java,线程,生产者消费者,">
+  <meta name="keywords" content="java,生产者消费者,线程,">
 
 
 
@@ -88,17 +88,19 @@
 
 
 <meta name="description" content="生产者－消费者模型在并发操作中很常见可以简单归纳为以下操作：1.生产者持续生产,直到缓存区无法容纳；如果缓存区可以容纳，继续生产;2.消费者持续消费,直到缓存区不够消费;　如果缓存区可以消费,继续进行消费;以下介绍三种生产者消费者java简单实现.">
-<meta name="keywords" content="java,线程,生产者消费者">
+<meta name="keywords" content="java,生产者消费者,线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="生产者消费者实现">
 <meta property="og:url" content="http://yoursite.com/2018/06/11/生产者消费者实现/index.html">
 <meta property="og:site_name" content="seayouagain">
 <meta property="og:description" content="生产者－消费者模型在并发操作中很常见可以简单归纳为以下操作：1.生产者持续生产,直到缓存区无法容纳；如果缓存区可以容纳，继续生产;2.消费者持续消费,直到缓存区不够消费;　如果缓存区可以消费,继续进行消费;以下介绍三种生产者消费者java简单实现.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-15T14:26:37.956Z">
+<meta property="og:image" content="http://yoursite.com/images/petra-4982348_1920.jpg">
+<meta property="og:updated_time" content="2020-04-03T14:32:54.147Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生产者消费者实现">
 <meta name="twitter:description" content="生产者－消费者模型在并发操作中很常见可以简单归纳为以下操作：1.生产者持续生产,直到缓存区无法容纳；如果缓存区可以容纳，继续生产;2.消费者持续消费,直到缓存区不够消费;　如果缓存区可以消费,继续进行消费;以下介绍三种生产者消费者java简单实现.">
+<meta name="twitter:image" content="http://yoursite.com/images/petra-4982348_1920.jpg">
 
 
 
@@ -365,7 +367,9 @@
       
 
       
-        <p>生产者－消费者模型在并发操作中很常见可以简单归纳为以下操作：<br>1.生产者持续生产,直到缓存区无法容纳；如果缓存区可以容纳，继续生产;<br>2.消费者持续消费,直到缓存区不够消费;　如果缓存区可以消费,继续进行消费;<br>以下介绍三种生产者消费者java简单实现.<br><a id="more"></a></p>
+        <p>生产者－消费者模型在并发操作中很常见可以简单归纳为以下操作：<br>1.生产者持续生产,直到缓存区无法容纳；如果缓存区可以容纳，继续生产;<br>2.消费者持续消费,直到缓存区不够消费;　如果缓存区可以消费,继续进行消费;<br>以下介绍三种生产者消费者java简单实现.</p>
+<p><img src="/images/petra-4982348_1920.jpg" alt></p>
+<a id="more"></a>
 <h3 id="方法一-wait-notify"><a href="#方法一-wait-notify" class="headerlink" title="方法一　wait notify"></a>方法一　wait notify</h3><p>使用Object类中的wait和notify机制进行控制.如果缓存区已满则生产者wait() 等待消费，如果缓存区为空则消费者wait() 等待生产;生产或者消费后缓存区不满或不为空则唤醒(notify)，实现代码如下:<br>Resource 资源类包括成员变量maxValue(最大容量),num（当前容量）；除此之外还包括put(int addValue) 如果资源类可以通纳addValue 则生产addValue。remove(int removeValue) 如果资源类足够消费removeValue 则消费removeValue。<strong>synchronized修饰防止多线程同时访问，另外wait 和notify之前也要先获取锁</strong></p>
 <blockquote>
 <p>public final void wait()<br>                throws InterruptedException<br>Causes the current thread to wait until another thread invokes the notify() method or the notifyAll() method for this object. In other words, this method behaves exactly as if it simply performs the call wait(0).<br>The current thread must own this object’s monitor. The thread releases ownership of this monitor and waits until another thread notifies threads waiting on this object’s monitor to wake up either through a call to the notify method or the notifyAll method. The thread then waits until it can re-obtain ownership of the monitor and resumes execution.</p>
@@ -428,9 +432,9 @@
           
             <a href="/tags/java/" rel="tag"># java</a>
           
-            <a href="/tags/线程/" rel="tag"># 线程</a>
-          
             <a href="/tags/生产者消费者/" rel="tag"># 生产者消费者</a>
+          
+            <a href="/tags/线程/" rel="tag"># 线程</a>
           
         </div>
       

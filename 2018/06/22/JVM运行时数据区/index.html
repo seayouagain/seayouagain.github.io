@@ -95,12 +95,13 @@
 <meta property="og:site_name" content="seayouagain">
 <meta property="og:description" content="最近在学习周志明的《深入理解java虚拟机》，在此做简单记录以便日后查阅，本篇记录记录第二章java 内存管理，主要是内存的区域划分以及每个区域的作用。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/sunset-above-mount-st-michael.jpg">
 <meta property="og:image" content="http://ou0fkrw0e.bkt.clouddn.com/%E3%80%80java%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png">
-<meta property="og:updated_time" content="2018-07-04T11:51:21.473Z">
+<meta property="og:updated_time" content="2020-04-03T14:33:37.844Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM内存区域学习笔记">
 <meta name="twitter:description" content="最近在学习周志明的《深入理解java虚拟机》，在此做简单记录以便日后查阅，本篇记录记录第二章java 内存管理，主要是内存的区域划分以及每个区域的作用。">
-<meta name="twitter:image" content="http://ou0fkrw0e.bkt.clouddn.com/%E3%80%80java%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png">
+<meta name="twitter:image" content="http://yoursite.com/images/sunset-above-mount-st-michael.jpg">
 
 
 
@@ -368,6 +369,7 @@
 
       
         <p>最近在学习周志明的《深入理解java虚拟机》，在此做简单记录以便日后查阅，本篇记录记录第二章java 内存管理，主要是内存的区域划分以及每个区域的作用。</p>
+<p><img src="/images/sunset-above-mount-st-michael.jpg" alt></p>
 <a id="more"></a>
 <h4 id="运行时数据区划分"><a href="#运行时数据区划分" class="headerlink" title="运行时数据区划分"></a>运行时数据区划分</h4><p>根据《java虚拟机规范》的规定java虚拟机所管理的内存分为下图所示的几个运行时数据区域。<br><img src="http://ou0fkrw0e.bkt.clouddn.com/%E3%80%80java%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png" alt="avatar"></p>
 <h4 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h4><p>是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。<strong>线程私有</strong>,是唯一一个不会发生OutOfMemeoryError的区域。</p>

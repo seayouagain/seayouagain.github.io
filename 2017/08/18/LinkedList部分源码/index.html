@@ -95,13 +95,13 @@
 <meta property="og:site_name" content="seayouagain">
 <meta property="og:description" content="记录一下自己看过LinkedList源码之后，对LinkedList原理的简单理解。java中 LinkedList是双向链表，它同时可以当作队列，栈其他数据结构进行使用。LinkedList并不是仅仅指的是双向链表。LinkList详细介绍wikipedia。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ou0fkrw0e.bkt.clouddn.com/LinkedListmodel.png">
+<meta property="og:image" content="http://yoursite.com/images/187-trunklog-stock.jpg">
 <meta property="og:image" content="http://ou0fkrw0e.bkt.clouddn.com/linkedList.png">
-<meta property="og:updated_time" content="2017-09-28T14:13:46.000Z">
+<meta property="og:updated_time" content="2020-04-03T14:31:02.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LinkedList部分源码">
 <meta name="twitter:description" content="记录一下自己看过LinkedList源码之后，对LinkedList原理的简单理解。java中 LinkedList是双向链表，它同时可以当作队列，栈其他数据结构进行使用。LinkedList并不是仅仅指的是双向链表。LinkList详细介绍wikipedia。">
-<meta name="twitter:image" content="http://ou0fkrw0e.bkt.clouddn.com/LinkedListmodel.png">
+<meta name="twitter:image" content="http://yoursite.com/images/187-trunklog-stock.jpg">
 
 
 
@@ -369,7 +369,7 @@
 
       
         <p>记录一下自己看过LinkedList源码之后，对LinkedList原理的简单理解。java中 LinkedList是双向链表，它同时可以当作队列，栈其他数据结构进行使用。LinkedList并不是仅仅指的是双向链表。<a href="https://en.wikipedia.org/wiki/Linked_list" target="_blank" rel="noopener">LinkList详细介绍wikipedia</a>。</p>
-<p><img src="http://ou0fkrw0e.bkt.clouddn.com/LinkedListmodel.png" alt></p>
+<p><img src="/images/187-trunklog-stock.jpg" alt></p>
 <a id="more"></a>
 <h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h4><p>LinkedList是一个双向链表。链表上的每个Node可以理解为一个对象，该对象最基本包含三个属性、自身的值，前一个Node 的引用、后一个Node的引用。所以其<br>以下是LinkedList源码中的Node的源码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">      E item;</span><br><span class="line">      Node&lt;E&gt; next;</span><br><span class="line">      Node&lt;E&gt; prev;</span><br><span class="line"></span><br><span class="line">      Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;</span><br><span class="line">          <span class="keyword">this</span>.item = element;</span><br><span class="line">          <span class="keyword">this</span>.next = next;</span><br><span class="line">          <span class="keyword">this</span>.prev = prev;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
 <p>由于LinkedList的实现的父类较多，下面为LinkedList继承类图<br><img src="http://ou0fkrw0e.bkt.clouddn.com/linkedList.png" alt></p>
