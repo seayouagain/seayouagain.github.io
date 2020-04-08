@@ -20,23 +20,28 @@
     var CONFIG = {"hostname":"seayouagain.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="今天使用Spring AOP功能时发现一个问题,简单描述一下:Spring 切面功能时,目标类方法内部调用时 增强功能没有生效,但是单个调用目录类的任何方法增强都是成功的.带着疑问Google,查阅Spring 官方文档.发现原来是自己对AOP原理理解不够深.">
+  <meta name="description" content="&amp;ensp;将hexo的博客部署到自己的服务器, 服务器系统是Centos7，选用Nginx作为web服务器.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring Aop 内部调用问题">
-<meta property="og:url" content="http://seayouagain.github.io/2017/09/13/Spring-Aop-%E5%86%85%E9%83%A8%E8%B0%83%E7%94%A8%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="Hexo部署到CentOS服务器">
+<meta property="og:url" content="http://seayouagain.github.io/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/index.html">
 <meta property="og:site_name" content="seayouagain">
-<meta property="og:description" content="今天使用Spring AOP功能时发现一个问题,简单描述一下:Spring 切面功能时,目标类方法内部调用时 增强功能没有生效,但是单个调用目录类的任何方法增强都是成功的.带着疑问Google,查阅Spring 官方文档.发现原来是自己对AOP原理理解不够深.">
+<meta property="og:description" content="&amp;ensp;将hexo的博客部署到自己的服务器, 服务器系统是Centos7，选用Nginx作为web服务器.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://seayouagain.github.io/images/188-trunklog-stock.jpg">
-<meta property="article:published_time" content="2017-09-13T13:47:53.000Z">
-<meta property="article:modified_time" content="2020-04-03T14:31:16.873Z">
+<meta property="og:image" content="http://seayouagain.github.io/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/sunset-5004905_1920.jpg">
+<meta property="og:image" content="http://seayouagain.github.io/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/Snipaste_2020-04-08_20-16-27.jpg">
+<meta property="og:image" content="http://seayouagain.github.io/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/Snipaste_2020-04-08_20-26-30.jpg">
+<meta property="og:image" content="http://seayouagain.github.io/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/Snipaste_2020-04-08_20-33-26.jpg">
+<meta property="og:image" content="http://seayouagain.github.io/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/Snipaste_2020-04-08_20-39-21.jpg">
+<meta property="og:image" content="http://seayouagain.github.io/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/Snipaste_2020-04-08_21-15-01.jpg">
+<meta property="article:published_time" content="2020-04-08T13:05:23.000Z">
+<meta property="article:modified_time" content="2020-04-08T13:16:04.505Z">
 <meta property="article:author" content="seayouagain">
-<meta property="article:tag" content="java">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="部署博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://seayouagain.github.io/images/188-trunklog-stock.jpg">
+<meta name="twitter:image" content="http://seayouagain.github.io/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/sunset-5004905_1920.jpg">
 
-<link rel="canonical" href="http://seayouagain.github.io/2017/09/13/Spring-Aop-%E5%86%85%E9%83%A8%E8%B0%83%E7%94%A8%E9%97%AE%E9%A2%98/">
+<link rel="canonical" href="http://seayouagain.github.io/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/">
 
 
 <script id="page-configurations">
@@ -49,7 +54,7 @@
   };
 </script>
 
-  <title>Spring Aop 内部调用问题 | seayouagain</title>
+  <title>Hexo部署到CentOS服务器 | seayouagain</title>
   
 
 
@@ -170,7 +175,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://seayouagain.github.io/2017/09/13/Spring-Aop-%E5%86%85%E9%83%A8%E8%B0%83%E7%94%A8%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://seayouagain.github.io/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -183,7 +188,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Spring Aop 内部调用问题
+          Hexo部署到CentOS服务器
         </h1>
 
         <div class="post-meta">
@@ -192,23 +197,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2017-09-13 21:47:53" itemprop="dateCreated datePublished" datetime="2017-09-13T21:47:53+08:00">2017-09-13</time>
+              <time title="创建时间：2020-04-08 21:05:23 / 修改时间：21:16:04" itemprop="dateCreated datePublished" datetime="2020-04-08T21:05:23+08:00">2020-04-08</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-03 22:31:16" itemprop="dateModified" datetime="2020-04-03T22:31:16+08:00">2020-04-03</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
                 </span>
             </span>
 
@@ -225,14 +224,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -244,12 +243,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>今天使用Spring AOP功能时发现一个问题,简单描述一下:Spring 切面功能时,目标类方法内部调用时 增强功能没有生效,但是单个调用目录类的任何方法增强都是成功的.带着疑问Google,查阅Spring 官方文档.发现原来是自己对AOP原理理解不够深.</p>
-<p><img src="/images/188-trunklog-stock.jpg" alt></p>
+        <p>&ensp;将hexo的博客部署到自己的服务器, 服务器系统是Centos7，选用Nginx作为web服务器.</p>
+<p><img src="/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/sunset-5004905_1920.jpg" alt></p>
 <a id="more"></a>
-<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>为了清楚的描述问题,我通过一个简单的例子来实现,首先定义一个TestService类内部包含两个方法分别为eatFoods() ,gotoWork(),在eatFood() 方法内部调用 gotoWork().并定义前置增强 具体代码如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接口类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TestService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//eatfoods</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">eatFoods</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//gotowork</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">gotoWork</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体实现类</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestServiceImpl</span> <span class="keyword">implements</span> <span class="title">TestService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eatFoods</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"eat foods"</span>);</span><br><span class="line">        gotoWork();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">gotoWork</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"go to work"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//前置增强切面</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAdvanced</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"this(com.smart.mytest.TestService)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeAdvanced</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"have a rest"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//测试方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"com/smart/mytest/mytest.xml"</span>);</span><br><span class="line">        TestService testService = (TestService) context.getBean(<span class="string">"testService"</span>);</span><br><span class="line">        testService.eatFoods();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>上述代码执行的结果为:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">have a rest</span><br><span class="line">eat foods</span><br><span class="line">go to work</span><br></pre></td></tr></table></figure><br>这有点超乎意外, gotoWork()方法并没有执行前置增强.</p>
-<h4 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h4><p>Spring AOP实现底层为JDK的动态代理或者CGLIB代理,就是为目标类生成新的子类,子类继承或者实现目标类的接口并覆盖其方法.<br>例如本例中会生成新的代理类实现.<br>TestService 接口,并覆写TestService的接口的两个方法,使其执行自己原有逻辑前先执行代理方法.大致内容如下:<br>1 .先执行    com.smart.mytest.TestAdvanced.TestAdvanced();<br>2 .执行 com.smart.mytest.TestServiceImpl.eatFoods();<br>而eatFoods() 内部调用的gotoWork() 隐藏了关键字 this<br>在上述代码输出时添加 this.getClass().getName()<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//testService 实际是代理对象的引用</span></span><br><span class="line">testService.getClass().getName():com.sun.proxy.$Proxy7</span><br><span class="line"><span class="comment">//增强对象</span></span><br><span class="line">com.smart.mytest.TestAdvanced     have a rest</span><br><span class="line"><span class="comment">//TestServiceImpl对象</span></span><br><span class="line">com.smart.mytest.TestServiceImpl      eat foods</span><br><span class="line"><span class="comment">//TestServiceImpl</span></span><br><span class="line">com.smart.mytest.TestServiceImpl     go to work</span><br></pre></td></tr></table></figure><br>从上述代码可以看出 最终调用 gotoWork() 方法的并非代理对象而是this指向的本例对象所以没有织入增强.</p>
-<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><p><a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-proxying" target="_blank" rel="noopener">参考Spring文档介绍</a> .<br>1 .重构代码使代码中不出现内部调用.<br>2 .在调用内部方法时使用下面方法代替this<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((TestService)AopContext.currentProxy()).gotoWork();</span><br></pre></td></tr></table></figure><br>并在配置文件中添加属性,expose-proxy = “true”<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;aop:aspectj-autoproxy  expose-proxy=<span class="string">"true"</span>/&gt;</span><br></pre></td></tr></table></figure><br>此时将正常获取当前的代理对象,这样就可以满足需求了.</p>
+<ol>
+<li>在服务器安装Nginx , 并启动Nginx服务.启动后直接访问 域名或者ip:80 会有下图所示证明安装成功<blockquote>
+<p>#安装Nginx<br>yum install nginx<br>#重启Nginx<br>systemctl restart nginx<br>nginx 服务设置为开启自启动<br>systemctl enable nginx</p>
+</blockquote>
+</li>
+</ol>
+<p><img src="/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/Snipaste_2020-04-08_20-16-27.jpg" alt></p>
+<ol start="2">
+<li><p>在 /usr/share/nginx 目录创建项目文件夹</p>
+<blockquote>
+<p>cd  /usr/share/nginx</p>
+<p>mkdir -p  hexo/html<br>/usr/share/nginx/ hexo/html  路径就是存储hexo博客的路径.</p>
+</blockquote>
+</li>
+<li><p>通过hexo g 生成html代码 将目录下的public/文件夹在的所有内容上传至服务器的         /usr/share/nginx/ hexo/html<br><img src="/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/Snipaste_2020-04-08_20-26-30.jpg" alt><br><img src="/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/Snipaste_2020-04-08_20-33-26.jpg" alt></p>
+</li>
+<li><p>修改Nginx配置文件，可以通过两种方式找到nginx的配置文件</p>
+<blockquote>
+<p> nginx  -t<br> ps aux | grep nginx<br> <img src="/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/Snipaste_2020-04-08_20-39-21.jpg" alt></p>
+</blockquote>
+<p> 首先在修改 /etc/nginx/nginx/.conf 文件如下,主要是启用Nginx压缩功能.</p>
+ <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    <span class="attribute">include</span>       /etc/nginx/mime.types;</span><br><span class="line">    <span class="attribute">default_type</span>  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">log_format</span>  main  <span class="string">'<span class="variable">$remote_addr</span> - <span class="variable">$remote_user</span> [<span class="variable">$time_local</span>] "<span class="variable">$request</span>" '</span></span><br><span class="line">                      <span class="string">'<span class="variable">$status</span> <span class="variable">$body_bytes_sent</span> "<span class="variable">$http_referer</span>" '</span></span><br><span class="line">                      <span class="string">'"<span class="variable">$http_user_agent</span>" "<span class="variable">$http_x_forwarded_for</span>"'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">access_log</span>  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">sendfile</span>        <span class="literal">on</span>;</span><br><span class="line">    <span class="comment">#tcp_nopush     on;</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">keepalive_timeout</span>  <span class="number">65</span>;</span><br><span class="line">    <span class="comment">#开启压缩</span></span><br><span class="line">    <span class="attribute">gzip</span>  <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">gzip_proxied</span> any;</span><br><span class="line">    <span class="attribute">gzip_min_length</span> <span class="number">1k</span>;</span><br><span class="line">    <span class="attribute">gzip_buffers</span> <span class="number">4</span> <span class="number">8k</span>;</span><br><span class="line">    <span class="attribute">gzip_comp_level</span> <span class="number">3</span>;</span><br><span class="line">    <span class="attribute">gzip_types</span> text/plain text/css application/x-javascript application/javascript application/xml;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">include</span> /etc/nginx/conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 具体的server配置文件在 include /etc/nginx/conf.d/ 路径下。进入此目录，先注释default.conf文件内容,并新建hexo.conf文件填写内容如下</p>
+ <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">       <span class="attribute">listen</span>      <span class="number">80</span>;</span><br><span class="line">   	<span class="comment"># 配置域名（localhost）</span></span><br><span class="line">       <span class="attribute">server_name</span> www.seayouagain.tk;</span><br><span class="line">       <span class="attribute">location</span> / &#123;</span><br><span class="line">       	<span class="comment"># 上述创建存储博客文件路径</span></span><br><span class="line">           <span class="attribute">root</span>   /usr/share/nginx/hexo/html;</span><br><span class="line">           <span class="attribute">index</span>  index.html;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li><p>重启Nginx 服务器 ,访问域名即可成功</p>
+<blockquote>
+<p>systemctl restart nginx</p>
+</blockquote>
+<p><img src="/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/Snipaste_2020-04-08_21-15-01.jpg" alt></p>
+</li>
+</ol>
+</li>
+</ol>
 
     </div>
 
@@ -265,7 +295,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://seayouagain.github.io/2017/09/13/Spring-Aop-%E5%86%85%E9%83%A8%E8%B0%83%E7%94%A8%E9%97%AE%E9%A2%98/" title="Spring Aop 内部调用问题">http://seayouagain.github.io/2017/09/13/Spring-Aop-内部调用问题/</a>
+    <a href="http://seayouagain.github.io/2020/04/08/Hexo%E9%83%A8%E7%BD%B2%E5%88%B0Centos%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="Hexo部署到CentOS服务器">http://seayouagain.github.io/2020/04/08/Hexo部署到Centos服务器/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -276,8 +306,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/java/" rel="tag"># java</a>
-              <a href="/tags/Spring/" rel="tag"># Spring</a>
+              <a href="/tags/hexo/" rel="tag"># hexo</a>
+              <a href="/tags/%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2/" rel="tag"># 部署博客</a>
           </div>
 
         
@@ -286,13 +316,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2017/08/18/LinkedList%E9%83%A8%E5%88%86%E6%BA%90%E7%A0%81/" rel="prev" title="LinkedList部分源码">
-      <i class="fa fa-chevron-left"></i> LinkedList部分源码
+    <a href="/2020/04/02/SpringMVC%E5%87%A0%E7%A7%8D%E9%85%8D%E7%BD%AE%E5%8C%BA%E5%88%AB/" rel="prev" title="WebMvcConfigurer，WebMvcConfigurerAdapter，WebMvcConfigurationSupport的区别">
+      <i class="fa fa-chevron-left"></i> WebMvcConfigurer，WebMvcConfigurerAdapter，WebMvcConfigurationSupport的区别
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2017/12/02/String-StringBuilder-StringBuffer%E4%B8%8D%E5%90%8C/" rel="next" title="String,StringBuilder,StringBuffer不同">
-      String,StringBuilder,StringBuffer不同 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -356,7 +383,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析原因"><span class="nav-number">2.</span> <span class="nav-text">分析原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决办法"><span class="nav-number">3.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
