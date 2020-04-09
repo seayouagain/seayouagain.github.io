@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"seayouagain.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"seayouagain.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="比较器 常用于集合中比较对象大小使用 如Collection.sort(), Arrays.sort(),以及TreeMap 排序树">
@@ -247,14 +247,14 @@
 
       
         <p>比较器 常用于集合中比较对象大小使用 如Collection.sort(), Arrays.sort(),以及TreeMap 排序树</p>
-<p><img src="/images/wolf-1341881_1920.jpg" alt></p>
+<p><img data-src="/images/wolf-1341881_1920.jpg" alt></p>
 <a id="more"></a>
 <h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>创建Comparator需要实现接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(T o1,T o2)</span></span></span><br></pre></td></tr></table></figure><br>compare 包含两个待比较参数<br>根据文档介绍 返回值 说明如下</p>
 <ul>
 <li>如果返回0 :o1 = o2</li>
 <li>如果为负正数 :o1&lt;o2</li>
 <li>如果为正整数  :o1&gt;o2<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span>  <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        list.add(<span class="string">"2"</span>);</span><br><span class="line">        list.add(<span class="string">"1"</span>);</span><br><span class="line">        list.add(<span class="string">"4"</span>);</span><br><span class="line">        list.add(<span class="string">"3"</span>);</span><br><span class="line">        list.add(<span class="string">"5"</span>);</span><br><span class="line">        Collections.sort(list, <span class="keyword">new</span> Comparator&lt;String&gt;() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String o1, String o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> Integer.valueOf(o2)-Integer.valueOf(o1);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">       System.out.println(list);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-这种情况输出的结果是 [5, 4, 3, 2, 1]<br>如果把return 改为 Integer.valueOf(o1)-Integer.valueOf(o2); 输出的结果为 [1, 2, 3, 4, 5]<h3 id="降序还是升序？"><a href="#降序还是升序？" class="headerlink" title="降序还是升序？"></a>降序还是升序？</h3>调试跟踪Collection.sort方法最终会进入下图核心代码<br><img src="http://ou0fkrw0e.bkt.clouddn.com/%E9%80%89%E5%8C%BA_003.png" alt><br>自定义的比较器在296行c.compare(pivot,a[mid])&lt;0 目的是找到已排序数组中应该放的位置<br>根据其判断条件可值 如果返回值小于0 最终排序位置会更靠左侧。<br>所以如果想升序排 需要o1-o2 ，反之 o2-o1.</li>
+这种情况输出的结果是 [5, 4, 3, 2, 1]<br>如果把return 改为 Integer.valueOf(o1)-Integer.valueOf(o2); 输出的结果为 [1, 2, 3, 4, 5]<h3 id="降序还是升序？"><a href="#降序还是升序？" class="headerlink" title="降序还是升序？"></a>降序还是升序？</h3>调试跟踪Collection.sort方法最终会进入下图核心代码<br><img data-src="http://ou0fkrw0e.bkt.clouddn.com/%E9%80%89%E5%8C%BA_003.png" alt><br>自定义的比较器在296行c.compare(pivot,a[mid])&lt;0 目的是找到已排序数组中应该放的位置<br>根据其判断条件可值 如果返回值小于0 最终排序位置会更靠左侧。<br>所以如果想升序排 需要o1-o2 ，反之 o2-o1.</li>
 </ul>
 
     </div>
@@ -496,8 +496,8 @@
   </div>
 
   
-  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

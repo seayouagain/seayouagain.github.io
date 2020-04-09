@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"seayouagain.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"seayouagain.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="本篇主要介绍在虚拟中判断对象是否存活的几种方法，以及垃圾回收常用的算法。本篇内容引自周志明的《深入理解java虚拟机 第二版》中第三章。">
@@ -245,7 +245,7 @@
 
       
         <p>本篇主要介绍在虚拟中判断对象是否存活的几种方法，以及垃圾回收常用的算法。本篇内容引自周志明的《深入理解java虚拟机 第二版》中第三章。</p>
-<p><img src="/images/sunset-3325080_1920.jpg" alt></p>
+<p><img data-src="/images/sunset-3325080_1920.jpg" alt></p>
 <a id="more"></a>
 <h4 id="哪些内存区域需要回收"><a href="#哪些内存区域需要回收" class="headerlink" title="哪些内存区域需要回收"></a>哪些内存区域需要回收</h4><p>虚拟机运行时数据区分为方法区，堆，虚拟机栈，本地方法区，程序计数器。其中虚拟机栈，本地方法区以及程序计数器３部分随线程而生，随线程而灭；并且这几个部分随方法结束或线程的结束内存自然机会回收。由于方法区中存放类信息，常量，静态变量信息这些信息回收的性价比很小效率很低。<strong>所以我们常说的垃圾回收是指回收堆内存，当然方法区内存也是可以回收的</strong>。</p>
 <h4 id="对象的生死"><a href="#对象的生死" class="headerlink" title="对象的生死"></a>对象的生死</h4><h5 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h5><p>引用计数法的逻辑是：给对象中添加一个引用计数器，每当有地方引用它时，计数器+1,当引用失效时，计数器-1。当引用计数器为０时说明没有对象引用它，这样就可以回收了。引用计数法存在致命的<strong>弊端</strong>,存在对象循环引用的问题。</p>
@@ -496,8 +496,8 @@
   </div>
 
   
-  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
