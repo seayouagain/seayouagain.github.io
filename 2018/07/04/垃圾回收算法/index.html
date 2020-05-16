@@ -17,26 +17,26 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"seayouagain.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"www.sleepwalker.ga","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta name="description" content="本篇主要介绍在虚拟中判断对象是否存活的几种方法，以及垃圾回收常用的算法。本篇内容引自周志明的《深入理解java虚拟机 第二版》中第三章。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="垃圾回收算法">
-<meta property="og:url" content="http://seayouagain.github.io/2018/07/04/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/index.html">
-<meta property="og:site_name" content="seayouagain">
+<meta property="og:url" content="http://www.sleepwalker.ga/2018/07/04/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="SleepWalker">
 <meta property="og:description" content="本篇主要介绍在虚拟中判断对象是否存活的几种方法，以及垃圾回收常用的算法。本篇内容引自周志明的《深入理解java虚拟机 第二版》中第三章。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://seayouagain.github.io/images/sunset-3325080_1920.jpg">
+<meta property="og:image" content="http://www.sleepwalker.ga/images/sunset-3325080_1920.jpg">
 <meta property="article:published_time" content="2018-07-04T11:56:16.000Z">
 <meta property="article:modified_time" content="2020-04-03T14:33:33.896Z">
-<meta property="article:author" content="seayouagain">
+<meta property="article:author" content="SleepWalker">
 <meta property="article:tag" content="JVM">
 <meta property="article:tag" content="垃圾回收">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://seayouagain.github.io/images/sunset-3325080_1920.jpg">
+<meta name="twitter:image" content="http://www.sleepwalker.ga/images/sunset-3325080_1920.jpg">
 
-<link rel="canonical" href="http://seayouagain.github.io/2018/07/04/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/">
+<link rel="canonical" href="http://www.sleepwalker.ga/2018/07/04/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>垃圾回收算法 | seayouagain</title>
+  <title>垃圾回收算法 | SleepWalker</title>
   
 
 
@@ -100,7 +100,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">seayouagain</h1>
+      <h1 class="site-title">SleepWalker</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">人生若只如初见，何事秋风悲画扇。</p>
@@ -129,17 +129,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">22</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">24</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">15</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">16</span></a>
 
   </li>
   </ul>
@@ -170,16 +170,16 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://seayouagain.github.io/2018/07/04/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://www.sleepwalker.ga/2018/07/04/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
-      <meta itemprop="name" content="seayouagain">
+      <meta itemprop="name" content="SleepWalker">
       <meta itemprop="description" content="叫醒你的不一定是梦想,还有饿着的肚子。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="seayouagain">
+      <meta itemprop="name" content="SleepWalker">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -268,11 +268,11 @@
 <div>
 <ul class="post-copyright">
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>seayouagain
+    <strong>本文作者： </strong>SleepWalker
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://seayouagain.github.io/2018/07/04/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" title="垃圾回收算法">http://seayouagain.github.io/2018/07/04/垃圾回收算法/</a>
+    <a href="http://www.sleepwalker.ga/2018/07/04/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" title="垃圾回收算法">http://www.sleepwalker.ga/2018/07/04/垃圾回收算法/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -369,9 +369,9 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="seayouagain"
+    <img class="site-author-image" itemprop="image" alt="SleepWalker"
       src="/images/user.jpg">
-  <p class="site-author-name" itemprop="name">seayouagain</p>
+  <p class="site-author-name" itemprop="name">SleepWalker</p>
   <div class="site-description" itemprop="description">叫醒你的不一定是梦想,还有饿着的肚子。</div>
 </div>
 <div class="site-state-wrap motion-element">
@@ -379,20 +379,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -419,7 +419,7 @@
     </div>
     <ul class="links-of-blogroll-list">
         <li class="links-of-blogroll-item">
-          <a href="http://seayouagain.github.io" title="http://seayouagain.github.io">本站</a>
+          <a href="http://seayouagain.github.io" title="http://seayouagain.github.io" rel="noopener" target="_blank">本站</a>
         </li>
     </ul>
   </div>
@@ -448,17 +448,17 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">seayouagain</span>
+  <span class="author" itemprop="copyrightHolder">SleepWalker</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">71k</span>
+    <span title="站点总字数">74k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:05</span>
+    <span title="站点阅读时长">1:07</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

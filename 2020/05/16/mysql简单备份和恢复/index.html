@@ -20,23 +20,21 @@
     var CONFIG = {"hostname":"www.sleepwalker.ga","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="今天使用Spring AOP功能时发现一个问题,简单描述一下:Spring 切面功能时,目标类方法内部调用时 增强功能没有生效,但是单个调用目录类的任何方法增强都是成功的.带着疑问Google,查阅Spring 官方文档.发现原来是自己对AOP原理理解不够深.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Spring Aop 内部调用问题">
-<meta property="og:url" content="http://www.sleepwalker.ga/2017/09/13/Spring-Aop-%E5%86%85%E9%83%A8%E8%B0%83%E7%94%A8%E9%97%AE%E9%A2%98/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="mysql简单备份和恢复">
+<meta property="og:url" content="http://www.sleepwalker.ga/2020/05/16/mysql%E7%AE%80%E5%8D%95%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/index.html">
 <meta property="og:site_name" content="SleepWalker">
-<meta property="og:description" content="今天使用Spring AOP功能时发现一个问题,简单描述一下:Spring 切面功能时,目标类方法内部调用时 增强功能没有生效,但是单个调用目录类的任何方法增强都是成功的.带着疑问Google,查阅Spring 官方文档.发现原来是自己对AOP原理理解不够深.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://www.sleepwalker.ga/images/188-trunklog-stock.jpg">
-<meta property="article:published_time" content="2017-09-13T13:47:53.000Z">
-<meta property="article:modified_time" content="2020-04-03T14:31:16.873Z">
+<meta property="og:image" content="http://www.sleepwalker.ga/2020/05/16/mysql%E7%AE%80%E5%8D%95%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/dream-4827288_1920.jpg">
+<meta property="article:published_time" content="2020-05-16T10:17:31.000Z">
+<meta property="article:modified_time" content="2020-05-16T10:30:28.351Z">
 <meta property="article:author" content="SleepWalker">
-<meta property="article:tag" content="java">
-<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="Mysql">
+<meta property="article:tag" content="备份恢复">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.sleepwalker.ga/images/188-trunklog-stock.jpg">
+<meta name="twitter:image" content="http://www.sleepwalker.ga/2020/05/16/mysql%E7%AE%80%E5%8D%95%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/dream-4827288_1920.jpg">
 
-<link rel="canonical" href="http://www.sleepwalker.ga/2017/09/13/Spring-Aop-%E5%86%85%E9%83%A8%E8%B0%83%E7%94%A8%E9%97%AE%E9%A2%98/">
+<link rel="canonical" href="http://www.sleepwalker.ga/2020/05/16/mysql%E7%AE%80%E5%8D%95%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/">
 
 
 <script id="page-configurations">
@@ -49,7 +47,7 @@
   };
 </script>
 
-  <title>Spring Aop 内部调用问题 | SleepWalker</title>
+  <title>mysql简单备份和恢复 | SleepWalker</title>
   
 
 
@@ -170,7 +168,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.sleepwalker.ga/2017/09/13/Spring-Aop-%E5%86%85%E9%83%A8%E8%B0%83%E7%94%A8%E9%97%AE%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://www.sleepwalker.ga/2020/05/16/mysql%E7%AE%80%E5%8D%95%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/user.jpg">
@@ -183,7 +181,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Spring Aop 内部调用问题
+          mysql简单备份和恢复
         </h1>
 
         <div class="post-meta">
@@ -192,23 +190,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2017-09-13 21:47:53" itemprop="dateCreated datePublished" datetime="2017-09-13T21:47:53+08:00">2017-09-13</time>
+              <time title="创建时间：2020-05-16 18:17:31 / 修改时间：18:30:28" itemprop="dateCreated datePublished" datetime="2020-05-16T18:17:31+08:00">2020-05-16</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-03 22:31:16" itemprop="dateModified" datetime="2020-04-03T22:31:16+08:00">2020-04-03</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
                 </span>
             </span>
 
@@ -225,7 +217,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -244,12 +236,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>今天使用Spring AOP功能时发现一个问题,简单描述一下:Spring 切面功能时,目标类方法内部调用时 增强功能没有生效,但是单个调用目录类的任何方法增强都是成功的.带着疑问Google,查阅Spring 官方文档.发现原来是自己对AOP原理理解不够深.</p>
-<p><img src="/images/188-trunklog-stock.jpg" alt></p>
-<a id="more"></a>
-<h4 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h4><p>为了清楚的描述问题,我通过一个简单的例子来实现,首先定义一个TestService类内部包含两个方法分别为eatFoods() ,gotoWork(),在eatFood() 方法内部调用 gotoWork().并定义前置增强 具体代码如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接口类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TestService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//eatfoods</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">eatFoods</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//gotowork</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">gotoWork</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体实现类</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestServiceImpl</span> <span class="keyword">implements</span> <span class="title">TestService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eatFoods</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"eat foods"</span>);</span><br><span class="line">        gotoWork();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">gotoWork</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"go to work"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//前置增强切面</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestAdvanced</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"this(com.smart.mytest.TestService)"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">beforeAdvanced</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"have a rest"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//测试方法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"com/smart/mytest/mytest.xml"</span>);</span><br><span class="line">        TestService testService = (TestService) context.getBean(<span class="string">"testService"</span>);</span><br><span class="line">        testService.eatFoods();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>上述代码执行的结果为:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">have a rest</span><br><span class="line">eat foods</span><br><span class="line">go to work</span><br></pre></td></tr></table></figure><br>这有点超乎意外, gotoWork()方法并没有执行前置增强.</p>
-<h4 id="分析原因"><a href="#分析原因" class="headerlink" title="分析原因"></a>分析原因</h4><p>Spring AOP实现底层为JDK的动态代理或者CGLIB代理,就是为目标类生成新的子类,子类继承或者实现目标类的接口并覆盖其方法.<br>例如本例中会生成新的代理类实现.<br>TestService 接口,并覆写TestService的接口的两个方法,使其执行自己原有逻辑前先执行代理方法.大致内容如下:<br>1 .先执行    com.smart.mytest.TestAdvanced.TestAdvanced();<br>2 .执行 com.smart.mytest.TestServiceImpl.eatFoods();<br>而eatFoods() 内部调用的gotoWork() 隐藏了关键字 this<br>在上述代码输出时添加 this.getClass().getName()<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//testService 实际是代理对象的引用</span></span><br><span class="line">testService.getClass().getName():com.sun.proxy.$Proxy7</span><br><span class="line"><span class="comment">//增强对象</span></span><br><span class="line">com.smart.mytest.TestAdvanced     have a rest</span><br><span class="line"><span class="comment">//TestServiceImpl对象</span></span><br><span class="line">com.smart.mytest.TestServiceImpl      eat foods</span><br><span class="line"><span class="comment">//TestServiceImpl</span></span><br><span class="line">com.smart.mytest.TestServiceImpl     go to work</span><br></pre></td></tr></table></figure><br>从上述代码可以看出 最终调用 gotoWork() 方法的并非代理对象而是this指向的本例对象所以没有织入增强.</p>
-<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><p><a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-proxying" target="_blank" rel="noopener">参考Spring文档介绍</a> .<br>1 .重构代码使代码中不出现内部调用.<br>2 .在调用内部方法时使用下面方法代替this<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((TestService)AopContext.currentProxy()).gotoWork();</span><br></pre></td></tr></table></figure><br>并在配置文件中添加属性,expose-proxy = “true”<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;aop:aspectj-autoproxy  expose-proxy=<span class="string">"true"</span>/&gt;</span><br></pre></td></tr></table></figure><br>此时将正常获取当前的代理对象,这样就可以满足需求了.</p>
+        <p><img src="/2020/05/16/mysql%E7%AE%80%E5%8D%95%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/dream-4827288_1920.jpg" alt><br><a id="more"></a></p>
+<h4 id="基本备份与恢复"><a href="#基本备份与恢复" class="headerlink" title="基本备份与恢复"></a>基本备份与恢复</h4><p>使用mysql提供的 mysqldump将文件导出[backup-file-name].sql. 这里还有其他参数可选如导出全部数据库，指定表，函数，存储过程 触发器等.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec [mysql-container-name] &#x2F;usr&#x2F;bin&#x2F;mysqldump -u[user] -p[password] [database-name] &gt; [backup-file-name].sql</span><br></pre></td></tr></table></figure>
+<p>恢复数据库，恢复相当于把导出的sql重新执行一遍。这种恢复只能恢复值备份时间点，并不能完整恢复，如果完整恢复还需要借助<strong>mysqlbinlog</strong>进行日志重做。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat backup-file-name.sql | docker exec -i [mysql-container-name] &#x2F;usr&#x2F;bin&#x2F;mysql -u[username] -p[password]  databanse-name</span><br></pre></td></tr></table></figure>
+<h4 id="压缩备份与恢复"><a href="#压缩备份与恢复" class="headerlink" title="压缩备份与恢复"></a>压缩备份与恢复</h4><p>将备份的文件通过gzip压缩减少存储空间的使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec [mysql-container-name] &#x2F;usr&#x2F;bin&#x2F;mysqldump -u[username]  -p[password] license | gzip &gt; [database-name]_&#96;date +%Y-%m-%d%H%M%S&#96;.sql.gz</span><br></pre></td></tr></table></figure>
+<p>使用gunzip解压并恢复</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gunzip &lt; [database-name]_&#96;date +%Y-%m-%d%H%M%S&#96;.sql.gz | docker exec -i [mysql-container-name] &#x2F;usr&#x2F;bin&#x2F;mysql -u[username] -p[password]  database-name</span><br></pre></td></tr></table></figure>
+<h4 id="脚本-定时备份"><a href="#脚本-定时备份" class="headerlink" title="脚本+定时备份"></a>脚本+定时备份</h4><p>使用shell脚本实现mysql备份功能 并使用crontab做定时任务执行此备份脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 备份文件夹</span></span><br><span class="line">basedir="/home/xx/DB/backup/"</span><br><span class="line">targetdir=$basedir</span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据库用户名</span></span><br><span class="line">username=</span><br><span class="line"><span class="meta">#</span><span class="bash"> 密码</span></span><br><span class="line">password=</span><br><span class="line"><span class="meta">#</span><span class="bash">容器</span></span><br><span class="line">containername=</span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据库</span></span><br><span class="line">databasename=</span><br><span class="line">if [ ! -d $targetdir ]</span><br><span class="line"> then</span><br><span class="line">   mkdir -p  $targetdir</span><br><span class="line">   echo  "创建备份文件夹成功"</span><br><span class="line"> else echo "文件夹已经存在"</span><br><span class="line">fi</span><br><span class="line">echo "开始备份"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 文件压缩包</span></span><br><span class="line">filename=license_`date +%Y-%m-%d-%H%M`.sql.gz</span><br><span class="line">docker exec mysql /usr/bin/mysqldump -u$username  -p$password  --single-transaction  $databasename | gzip &gt; $targetdir$filename</span><br><span class="line">echo "备份完成"</span><br><span class="line">echo "备份文件名"$targetdir$filename</span><br></pre></td></tr></table></figure>
+<p>使用crontab 创建定时任务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart cornd</span><br><span class="line"><span class="meta">#</span><span class="bash">编辑定时任务 </span></span><br><span class="line">crontab -e </span><br><span class="line"><span class="meta">#</span><span class="bash">测试每两分钟备份一次</span></span><br><span class="line">*/2 * * * *    /home/xx/shell/backup.sh</span><br></pre></td></tr></table></figure>
+<p>恢复shell脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">basedir="/home/xx/DB/backup/"</span><br><span class="line">concatinername=</span><br><span class="line">username=</span><br><span class="line">password=</span><br><span class="line">databasename=</span><br><span class="line">filename=$1</span><br><span class="line">if [ ! -n $filename ]</span><br><span class="line"> then </span><br><span class="line">  echo "请输入备份文件名,基于"$basedir“ 的相对路径”</span><br><span class="line">  ehco "例如"$basedir"backup.tar.gz"</span><br><span class="line">  echo "直接附加参数 backup.tar.gz"</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检查文件是否存在</span></span><br><span class="line">if [ ! -f $basedir$filename ]</span><br><span class="line"> then echo "文件不存在  "$basedir$filename</span><br><span class="line"> exit</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo "开始执行恢复"</span><br><span class="line"></span><br><span class="line">gunzip &lt; $basedir$filename | docker exec -i $concatinername /usr/bin/mysql -u$username -p$password  $databasename</span><br><span class="line"></span><br><span class="line">echo "恢复完成"</span><br></pre></td></tr></table></figure>
+<h4 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h4><p>mysqldump: [Warning] Using a password on the command line interface can be insecure.<br>首先在mysql配置文件中添加如下信息 然后重启docker mysql服务 .参考 <a href="https://stackoverflow.com/questions/20751352/suppress-warning-messages-using-mysql-from-within-terminal-but-password-written" target="_blank" rel="noopener">stackoverflow</a></p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">host=localhost</span><br><span class="line">password=password</span><br></pre></td></tr></table></figure>
+<p>具体shell如下 使用–defaults-extra-file 替换原理的密码  其中 <strong>/etc/my.cnf</strong> 是mysql在容器中的配置文件位置。</p>
+<blockquote>
+<p>需要注意 –defaults-extra-file 必须是第一个参数</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 备份文件夹</span></span><br><span class="line">basedir="/home/xx/DB/backup/"</span><br><span class="line">targetdir=$basedir</span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据库用户名</span></span><br><span class="line">username=</span><br><span class="line"><span class="meta">#</span><span class="bash">容器</span></span><br><span class="line">containername=</span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据库</span></span><br><span class="line">databasename=</span><br><span class="line">if [ ! -d $targetdir ]</span><br><span class="line"> then</span><br><span class="line">   mkdir -p  $targetdir</span><br><span class="line">   echo  "创建备份文件夹成功"</span><br><span class="line"> else echo "文件夹已经存在"</span><br><span class="line">fi</span><br><span class="line">echo "开始备份"</span><br><span class="line"><span class="meta">#</span><span class="bash">文件名</span></span><br><span class="line">filename=license_`date +%Y-%m-%d-%H%M`.sql.gz</span><br><span class="line">docker exec mysql /usr/bin/mysqldump --defaults-extra-file=/etc/my.cnf -u$username  --single-transaction   $databasename | gzip &gt; $targetdir$filename</span><br><span class="line">echo "备份完成"</span><br><span class="line">echo "备份文件名"$targetdir$filename</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -265,7 +273,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://www.sleepwalker.ga/2017/09/13/Spring-Aop-%E5%86%85%E9%83%A8%E8%B0%83%E7%94%A8%E9%97%AE%E9%A2%98/" title="Spring Aop 内部调用问题">http://www.sleepwalker.ga/2017/09/13/Spring-Aop-内部调用问题/</a>
+    <a href="http://www.sleepwalker.ga/2020/05/16/mysql%E7%AE%80%E5%8D%95%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/" title="mysql简单备份和恢复">http://www.sleepwalker.ga/2020/05/16/mysql简单备份和恢复/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -276,8 +284,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/java/" rel="tag"># java</a>
-              <a href="/tags/Spring/" rel="tag"># Spring</a>
+              <a href="/tags/Mysql/" rel="tag"># Mysql</a>
+              <a href="/tags/%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D/" rel="tag"># 备份恢复</a>
           </div>
 
         
@@ -286,13 +294,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2017/08/18/LinkedList%E9%83%A8%E5%88%86%E6%BA%90%E7%A0%81/" rel="prev" title="LinkedList部分源码">
-      <i class="fa fa-chevron-left"></i> LinkedList部分源码
+    <a href="/2020/05/14/MongoDB%E5%AD%A6%E4%B9%A0%E5%A4%87%E5%BF%98/" rel="prev" title="MongoDB学习备忘">
+      <i class="fa fa-chevron-left"></i> MongoDB学习备忘
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2017/12/02/String-StringBuilder-StringBuffer%E4%B8%8D%E5%90%8C/" rel="next" title="String,StringBuilder,StringBuffer不同">
-      String,StringBuilder,StringBuffer不同 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -356,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析原因"><span class="nav-number">2.</span> <span class="nav-text">分析原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决办法"><span class="nav-number">3.</span> <span class="nav-text">解决办法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本备份与恢复"><span class="nav-number">1.</span> <span class="nav-text">基本备份与恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩备份与恢复"><span class="nav-number">2.</span> <span class="nav-text">压缩备份与恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#脚本-定时备份"><span class="nav-number">3.</span> <span class="nav-text">脚本+定时备份</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题解决"><span class="nav-number">4.</span> <span class="nav-text">问题解决</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
