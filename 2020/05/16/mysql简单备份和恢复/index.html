@@ -27,7 +27,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://www.sleepwalker.ga/2020/05/16/mysql%E7%AE%80%E5%8D%95%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/dream-4827288_1920.jpg">
 <meta property="article:published_time" content="2020-05-16T10:17:31.000Z">
-<meta property="article:modified_time" content="2020-05-16T10:39:29.603Z">
+<meta property="article:modified_time" content="2020-05-19T10:32:20.247Z">
 <meta property="article:author" content="SleepWalker">
 <meta property="article:tag" content="Mysql">
 <meta property="article:tag" content="备份恢复">
@@ -127,7 +127,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">24</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">25</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -137,7 +137,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">16</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">17</span></a>
 
   </li>
   </ul>
@@ -190,17 +190,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-05-16 18:17:31 / 修改时间：18:39:29" itemprop="dateCreated datePublished" datetime="2020-05-16T18:17:31+08:00">2020-05-16</time>
+              <time title="创建时间：2020-05-16 18:17:31" itemprop="dateCreated datePublished" datetime="2020-05-16T18:17:31+08:00">2020-05-16</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-19 18:32:20" itemprop="dateModified" datetime="2020-05-19T18:32:20+08:00">2020-05-19</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                  <a href="/categories/database/" itemprop="url" rel="index"><span itemprop="name">database</span></a>
                 </span>
             </span>
 
@@ -246,11 +252,11 @@
 <p>使用gunzip解压并恢复</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gunzip &lt; [database-name]_&#96;date +%Y-%m-%d%H%M%S&#96;.sql.gz | docker exec -i [mysql-container-name] &#x2F;usr&#x2F;bin&#x2F;mysql -u[username] -p[password]  database-name</span><br></pre></td></tr></table></figure>
 <h4 id="脚本-定时备份"><a href="#脚本-定时备份" class="headerlink" title="脚本+定时备份"></a>脚本+定时备份</h4><p>使用shell脚本实现mysql备份功能 并使用crontab做定时任务执行此备份脚本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 备份文件夹</span></span><br><span class="line">basedir="/home/xx/DB/backup/"</span><br><span class="line">targetdir=$basedir</span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据库用户名</span></span><br><span class="line">username=</span><br><span class="line"><span class="meta">#</span><span class="bash"> 密码</span></span><br><span class="line">password=</span><br><span class="line"><span class="meta">#</span><span class="bash">容器</span></span><br><span class="line">containername=</span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据库</span></span><br><span class="line">databasename=</span><br><span class="line">if [ ! -d $targetdir ]</span><br><span class="line"> then</span><br><span class="line">   mkdir -p  $targetdir</span><br><span class="line">   echo  "创建备份文件夹成功"</span><br><span class="line"> else echo "文件夹已经存在"</span><br><span class="line">fi</span><br><span class="line">echo "开始备份"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 文件压缩包</span></span><br><span class="line">filename=license_`date +%Y-%m-%d-%H%M`.sql.gz</span><br><span class="line">docker exec mysql /usr/bin/mysqldump -u$username  -p$password  --single-transaction  $databasename | gzip &gt; $targetdir$filename</span><br><span class="line">echo "备份完成"</span><br><span class="line">echo "备份文件名"$targetdir$filename</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 备份文件夹</span></span><br><span class="line">basedir="/home/xx/DB/backup/"</span><br><span class="line">targetdir=$basedir</span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据库用户名</span></span><br><span class="line">username=</span><br><span class="line"><span class="meta">#</span><span class="bash"> 密码</span></span><br><span class="line">password=</span><br><span class="line"><span class="meta">#</span><span class="bash">容器</span></span><br><span class="line">containername=</span><br><span class="line"><span class="meta">#</span><span class="bash"> 数据库</span></span><br><span class="line">databasename=</span><br><span class="line">if [ ! -d $targetdir ]</span><br><span class="line"> then</span><br><span class="line">   mkdir -p  $targetdir</span><br><span class="line">   echo  "创建备份文件夹成功"</span><br><span class="line"> else echo "文件夹已经存在"</span><br><span class="line">fi</span><br><span class="line">echo "开始备份"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 文件压缩包</span></span><br><span class="line">filename=license_`date +%Y-%m-%d-%H%M`.sql.gz</span><br><span class="line">docker exec $containername /usr/bin/mysqldump -u$username  -p$password  --single-transaction  $databasename | gzip &gt; $targetdir$filename</span><br><span class="line">echo "备份完成"</span><br><span class="line">echo "备份文件名"$targetdir$filename</span><br></pre></td></tr></table></figure>
 <p>使用crontab 创建定时任务</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart cornd</span><br><span class="line"><span class="meta">#</span><span class="bash">编辑定时任务 </span></span><br><span class="line">crontab -e </span><br><span class="line"><span class="meta">#</span><span class="bash">测试每两分钟备份一次</span></span><br><span class="line">*/2 * * * *    /home/xx/shell/backup.sh</span><br></pre></td></tr></table></figure>
 <p>恢复shell脚本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">basedir="/home/xx/DB/backup/"</span><br><span class="line">concatinername=</span><br><span class="line">username=</span><br><span class="line">password=</span><br><span class="line">databasename=</span><br><span class="line">filename=$1</span><br><span class="line">if [ ! -n $filename ]</span><br><span class="line"> then </span><br><span class="line">  echo "请输入备份文件名,基于"$basedir“ 的相对路径”</span><br><span class="line">  ehco "例如"$basedir"backup.tar.gz"</span><br><span class="line">  echo "直接附加参数 backup.tar.gz"</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检查文件是否存在</span></span><br><span class="line">if [ ! -f $basedir$filename ]</span><br><span class="line"> then echo "文件不存在  "$basedir$filename</span><br><span class="line"> exit</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo "开始执行恢复"</span><br><span class="line"></span><br><span class="line">gunzip &lt; $basedir$filename | docker exec -i $concatinername /usr/bin/mysql -u$username -p$password  $databasename</span><br><span class="line"></span><br><span class="line">echo "恢复完成"</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">basedir="/home/xx/DB/backup/"</span><br><span class="line">containername=</span><br><span class="line">username=</span><br><span class="line">password=</span><br><span class="line">databasename=</span><br><span class="line">filename=$1</span><br><span class="line">if [ ! -n $filename ]</span><br><span class="line"> then </span><br><span class="line">  echo "请输入备份文件名,基于"$basedir“ 的相对路径”</span><br><span class="line">  ehco "例如"$basedir"backup.tar.gz"</span><br><span class="line">  echo "直接附加参数 backup.tar.gz"</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> 检查文件是否存在</span></span><br><span class="line">if [ ! -f $basedir$filename ]</span><br><span class="line"> then echo "文件不存在  "$basedir$filename</span><br><span class="line"> exit</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo "开始执行恢复"</span><br><span class="line"></span><br><span class="line">gunzip &lt; $basedir$filename | docker exec -i $containername /usr/bin/mysql -u$username -p$password  $databasename</span><br><span class="line"></span><br><span class="line">echo "恢复完成"</span><br></pre></td></tr></table></figure>
 <h4 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h4><p>mysqldump: [Warning] Using a password on the command line interface can be insecure.<br>首先在mysql配置文件中添加如下信息 然后重启docker mysql服务 .参考 <a href="https://stackoverflow.com/questions/20751352/suppress-warning-messages-using-mysql-from-within-terminal-but-password-written" target="_blank" rel="noopener">stackoverflow</a></p>
 <figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">host=localhost</span><br><span class="line">password=password</span><br></pre></td></tr></table></figure>
 <p>具体shell如下 使用–defaults-extra-file 替换原理的密码  其中 <strong>/etc/my.cnf</strong> 是mysql在容器中的配置文件位置。</p>
@@ -297,7 +303,10 @@
     <a href="/2020/05/14/MongoDB%E5%AD%A6%E4%B9%A0%E5%A4%87%E5%BF%98/" rel="prev" title="MongoDB学习备忘">
       <i class="fa fa-chevron-left"></i> MongoDB学习备忘
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/18/mysql%E9%AB%98%E5%8F%AF%E7%94%A8%E9%85%8D%E7%BD%AE/" rel="next" title="mysql 高可用配置">
+      mysql 高可用配置 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -377,7 +386,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -390,7 +399,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -451,12 +460,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">74k</span>
+    <span title="站点总字数">80k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:07</span>
+    <span title="站点阅读时长">1:12</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
